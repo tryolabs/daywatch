@@ -16,7 +16,7 @@ layout: default
         <div class="device">
           <div class="screen">
             <a href="{{ site.items_screen }}">
-              <img src="{{ site.items_screen }}">
+              <img src="{{ site.baseurl }}/{{ site.items_screen }}">
             </a>
           </div>
         </div>
@@ -108,7 +108,7 @@ layout: default
       {% for logo in site.logos %}
         <li>
           <a href="{{ logo.url }}">
-            <img src="/assets/img/logos/{{ logo.file }}">
+            <img src="{{ site.baseurl }}/assets/img/logos/{{ logo.file }}">
           </a>
         </li>
       {% endfor %}
