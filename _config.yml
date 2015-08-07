@@ -1,6 +1,6 @@
 title: DayWatch
 description: E-commerce scraping and analytics platform.
-baseurl: ""
+baseurl: "/daywatch"
 url: "http://www.usedaywatch.com"
 
 tryo: "http://tryolabs.com/"
