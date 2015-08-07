@@ -15,7 +15,7 @@ $landing-header-height: 400px;
 
 $navbar-height: 80px;
 
-$mobile-size: 640px;
+$mobile-size: 900px;
 
 /* Mixins */
 
@@ -141,7 +141,16 @@ nav {
 
   section {
     border-top: 1px solid #f6f6f6;
-    padding: 50px 75px;
+
+    @include on-desktop() {
+      width: 80%;
+      margin: 0 auto;
+      padding: 50px 0;
+    }
+
+    @include on-mobile() {
+      padding: 50px 75px;
+    }
 
     h2 {
       text-align: center;
