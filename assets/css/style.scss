@@ -106,6 +106,10 @@ nav {
     li {
       display: inline-block;
       list-style-type: none;
+
+      a {
+        padding: 0 30px;
+      }
     }
   }
 }
