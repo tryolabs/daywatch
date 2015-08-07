@@ -1,0 +1,72 @@
+{% extends "base_panel.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}
+
+
+		<link href="{{ STATIC_URL }}css/jquery.jqplot.css" type="text/css" rel="stylesheet">
+
+		
+		<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/excanvas.min.js"></script><![endif]-->
+		<!-- <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}jquery-1.6.4.min.js"></script> -->
+		<script type='text/javascript' src='{{ STATIC_URL }}js/jquery.jqplot.js'></script>
+		<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery.form.js"></script>
+		<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.8.17.custom.min.js"></script>
+		<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery.blockUI.js"></script>
+		
+		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script> 
+  		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+  		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+  		
+  		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.highlighter.js"></script>
+		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.cursor.min.js"></script> 
+		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+
+		<script class="include"  language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.barRenderer.min.js"></script>
+		<script class="include"  language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+		<script class="include"  language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.pointLabels.min.js"></script>
+
+		{% include "includes/left_panel_js.html" %}
+		
+		<script type="text/javascript">
+		
+		$(document).ready(function() {
+			$("#graphForm").attr('action', "{% url "history_comparison_div" %}");
+			
+			var options_html = {
+	        		dataType: 'json',
+	        		error: function(xhr, ajaxOptions, thrownError) { alert(thrownError);},
+	        	    success: form_callback 
+	        	};
+	        
+			$('#graphForm').ajaxForm(options_html);
+			
+		});
+		
+		function form_callback(responseText) {
+			if (responseText.status_code == 0){
+				$("#content_div").empty();
+			    $("#content_div").append(responseText.html);
+			    renderReports();
+			    Cufon.now();
+			    $.unblockUI();  
+			}else{
+			   
+			}
+		}
+		
+		</script>
+
+<script language="javascript" type="text/javascript">
+        $(document).ready(function(){
+        	setCurrentNav("comparision");
+        });
+</script>
+
+{% endblock %}   
+
+{% block subtitle %}
+<!-- <h2 id="panel_title">{% blocktrans %}History Comparisons{% endblocktrans %}</h2>	 -->
+{% endblock %}
+

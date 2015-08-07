@@ -1,0 +1,45 @@
+#  Install system packages
+
+- hosts: enabled
+  sudo: True
+  vars_files:
+    - '{{var_dir}}/paths.yml'
+  roles:
+    - bobbyrenwick.pip
+
+  tasks:
+
+    - name: Update locales
+      command: update-locale LC_ALL=en_US.utf8 LANG=en_US.utf8
+               LC_CTYPE=en_US.utf8 LC_COLLATE=en_US.utf8
+
+    - name: Add node.js repository
+      apt_repository: repo='ppa:chris-lea/node.js'
+
+    - name: Install system packages
+      apt: pkg={{item}} state=installed update_cache=yes
+      with_items:
+        - python-dev
+        - build-essential
+        - libffi-dev
+        - nodejs
+        - curl
+        - vim
+        - git
+        - mercurial
+        - redis-server
+        - nginx
+        - supervisor
+        - gettext
+        - libxml2-dev
+        - libxslt1-dev
+        - libxml2
+
+    - name: Install bower
+      command: npm install -g bower creates=/usr/bin/bower
+
+    - name: Install virtualenv and virtualenvwrapper
+      pip: name={{item}} state=present
+      with_items:
+        - virtualenv==1.11.4
+        - virtualenvwrapper==4.2

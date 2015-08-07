@@ -1,0 +1,96 @@
+{% load l10n %}
+{% load i18n %}
+{% load humanize %}
+
+<div class="logs">
+  {% for site, data in sites.items %}
+    <div class="spider-log {% if data.state %}working{% else %}fail{% endif %}">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>{{site}} Spider</h2>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="offer-count-log col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3>Offer Count in this Period</h3>
+                </div>
+                <div class="panel-body">
+                  {% if data.offers_log %}
+                    <chart type="line"
+                           x-date-format="%x"
+                           y-format="04d"
+                           tooltips="true"
+                           width="380">
+                      <data>
+                        Date, Offers
+                        {% for date, offers in data.offers_log %}
+                          {{ date }},{{ offers }}
+                        {% endfor %}
+                      </data>
+                    </chart>
+                  {% else %}
+                    <div class="nothing">
+                      No offer count history for this period.
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="error-distribution col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3>Errors in this Period</h3>
+                </div>
+                <div class="panel-body">
+                  {% if data.errors %}
+                    <chart type="pie"
+                           legend="true">
+                      <data>
+                        {% for error_name, error_percentage in data.errors %}
+                          {{ error_name }},{{ error_percentage }}
+                        {% endfor %}
+                      </data>
+                    </chart>
+                  {% else %}
+                    <div class="alert alert-danger" role="alert">
+                      No errors in this period.
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="errors-evolution col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3>Error Evolution</h3>
+                </div>
+                <div class="panel-body">
+                  {% if data.error_evolution %}
+                    <chart type="stacked"
+                           x-date-format="%x"
+                           legend="true">
+                      <data>
+                        Date{% for cat in error_categories %},{{cat}}{% endfor %}
+                        {% for period in data.error_evolution %}
+                          {{period.date}}{% for cat, val in period.errors %},{{val}}{% endfor %}
+                        {% endfor %}
+                      </data>
+                    </chart>
+                  {% else %}
+                    <div class="alert alert-danger" role="alert">
+                      No error evolution.
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

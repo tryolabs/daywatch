@@ -1,0 +1,10 @@
+# If using MonkeyLearn integration, add your credentials here. `ml_categorizers`
+# is a map of ISO language codes (Like those in the Language model) to
+# classifier IDs. `ml_auth_token` is the MonkeyLearn API authorization token.
+
+# If you're not using these, just leave them as `null`
+
+ml_categorizers:
+  en: '5ZACtbFb'
+  es: 'jptEsGNy'
+ml_auth_token: # Your token goes here

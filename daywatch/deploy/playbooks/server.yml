@@ -1,0 +1,34 @@
+- hosts: enabled
+  sudo: True
+  vars_files:
+    - '{{var_dir}}/paths.yml'
+    - '{{var_dir}}/server.yml'
+
+  tasks:
+
+    - name: Configure Nginx
+      template: src={{template_dir}}/nginx/nginx.conf dest={{nginx_conf}}
+
+    - name: Configure DayWatch Nginx deployment
+      template: src={{template_dir}}/nginx/daywatch.conf dest={{sites_available}}
+
+    - name: Symlink daywatch to sites-enabled
+      command: ln -s {{sites_available}} {{sites_enabled}} creates={{sites_enabled}}
+
+    - name: Create /var/www directory
+      file: path=/var/www state=directory
+
+    - name: Symlink Daywatch to the /www path
+      command: ln -s {{django_manage_path}} {{www_path}} creates={{www_path}}
+
+    - name: Change ownership of the directory
+      command: chown -R {{user}} {{www_path}}
+
+    - name: Remove 'default' configuration from Nginx sites-enabled
+      file: path=/etc/nginx/sites-enabled/default state=absent
+
+    - name: Restart Nginx
+      command: service nginx restart
+
+    - name: Restart postgres service to fix EOF errors
+      service: name=postgresql state=restarted

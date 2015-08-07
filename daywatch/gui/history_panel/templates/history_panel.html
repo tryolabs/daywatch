@@ -1,0 +1,249 @@
+{% extends "base_panel.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}
+
+
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/demo_page.css" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/demo_table.css" />
+
+		<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery.form.js"></script>
+		<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+		<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.8.17.custom.min.js"></script>
+		<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery.blockUI.js"></script>
+
+		{% include "includes/left_panel_js.html" %}
+
+		<script type="text/javascript">
+
+		jQuery.fn.dataTableExt.oSort['currency-asc'] = function(a,b) {
+		    /* Remove any formatting */
+
+		    var NO_DATA = "--";
+
+		    var x = a == "-" ? 0 : a.replace( /[^\d\-\.]/g, "" );
+		    var y = b == "-" ? 0 : b.replace( /[^\d\-\.]/g, "" );
+
+		    /* Parse and return */
+		    x = parseFloat( x );
+		    y = parseFloat( y );
+		    return x - y;
+		};
+
+		jQuery.fn.dataTableExt.oSort['currency-desc'] = function(a,b) {
+		    var x = a == "-" ? 0 : a.replace( /[^\d\-\.]/g, "" );
+		    var y = b == "-" ? 0 : b.replace( /[^\d\-\.]/g, "" );
+
+		    x = parseFloat( x );
+		    y = parseFloat( y );
+		    return y - x;
+		};
+
+
+		jQuery.fn.dataTableExt.oSort['formatted-num-asc'] = function(a,b) {
+		    /* Remove any formatting */
+		    var x = a.match(/\d/) ? a.replace( /[^\d\-\.]/g, "" ) : 0;
+		    var y = b.match(/\d/) ? b.replace( /[^\d\-\.]/g, "" ) : 0;
+
+		    /* Parse and return */
+		    return parseFloat(x) - parseFloat(y);
+		};
+
+		jQuery.fn.dataTableExt.oSort['formatted-num-desc'] = function(a,b) {
+		    var x = a.match(/\d/) ? a.replace( /[^\d\-\.]/g, "" ) : 0;
+		    var y = b.match(/\d/) ? b.replace( /[^\d\-\.]/g, "" ) : 0;
+
+		    return parseFloat(y) - parseFloat(x);
+		};
+
+
+		jQuery.fn.dataTableExt.oSort['percent-asc']  = function(a,b) {
+		    var x = (a == "-") ? 0 : a.replace( /%/, "" );
+		    var y = (b == "-") ? 0 : b.replace( /%/, "" );
+		    x = parseFloat( x );
+		    y = parseFloat( y );
+		    return ((x < y) ? -1 : ((x > y) ?  1 : 0));
+		};
+
+		jQuery.fn.dataTableExt.oSort['percent-desc'] = function(a,b) {
+		    var x = (a == "-") ? 0 : a.replace( /%/, "" );
+		    var y = (b == "-") ? 0 : b.replace( /%/, "" );
+		    x = parseFloat( x );
+		    y = parseFloat( y );
+		    return ((x < y) ?  1 : ((x > y) ? -1 : 0));
+		};
+
+
+		$(document).ready(function() {
+			$("#graphForm").attr('action', "{% url "history_div" %}");
+			$("#graphFormRefresh").attr('onclick', null);
+			$("#graphFormRefresh").click(drawTable);
+
+			$('#left_panel_concept_div').hide();
+
+		});
+
+		function checkErrors(response) {
+			if (response.out_of_range_error) {
+				$('#deals_table_container').append(response.out_of_range_html);
+			} else if (response.out_of_range_warning) {
+				$('#inner_content').html(response.out_of_range_html);
+			}
+		}
+
+		function drawTable() {
+			$("#inner_content").empty();
+			$("#deals_table_container").empty();
+			$('#deals_table_template').clone(true).attr("id", "deals_table").removeAttr("style").appendTo("#deals_table_container");
+
+        	var historyTable = $('#deals_table').dataTable({
+       			"bServerSide": true,
+       			"sAjaxSource": "{% url "history_div" %}",
+
+       			"aoColumnDefs": [
+       			                 { "sType": "formatted-num", "aTargets": [ "formatted-num" ] },
+       			                 { "sType": "percent", "aTargets": [ "percent" ] }
+       			               ],
+
+       			"sPaginationType": "full_numbers",
+       			"iDisplayLength": 25,
+
+       			"fnServerParams": function (aoData) {
+       				aoData = $.merge(aoData, $("#graphForm").serializeArray());
+       				$.blockUI({
+       				    /*message : '<img class="loading_spinner" src="/static/images/loader.gif"/><h1 style="padding-left: 20px; float:left;line-height: 40px;padding-right: 20px;">Processing...</h1> ',*/
+       				    message : '<img style="padding-left: 20px; padding-top: 12px;" class="loading_spinner" src="{{ STATIC_URL }}images/loader.gif"/><h1 style="padding-left: 10px; float:left;line-height: 40px;padding-right: 20px;">Processing...</h1> ',
+       				    css : {
+       				        height : '40px'
+       				    },
+       				 	bindEvents : false
+       				});
+				},
+
+				'fnServerData': function(sSource, aoData, fnCallback) {
+					$.ajax({
+						'dataType': 'json',
+						'type': 'GET',
+						'url': sSource,
+						'data': aoData,
+						'success': [fnCallback, checkErrors]
+					});
+				},
+
+       			"aoColumns": [
+					{ "bSearchable": true, "sWidth": "17%" },
+					{ "bSearchable": false },
+					{ "bSearchable": false },
+					{ "bSearchable": false },
+					{ "bSearchable": false, "asSorting": ["desc", "asc"] },
+					{ "bSearchable": false, "asSorting": ["desc", "asc"] },
+					{ "bSearchable": false, "asSorting": ["desc", "asc"] },
+					{ "bSearchable": false },
+					{ "bSearchable": false, "asSorting": ["desc", "asc"] },
+					{ "bSearchable": false, "asSorting": ["desc", "asc"] },
+					{ "bSearchable": false, "asSorting": ["desc", "asc"] },
+					{ "bSearchable": true },
+				],
+
+				"fnDrawCallback": function( oSettings ) {
+					/* Every time we re-draw the table we copy the pagination bar into
+					   the upper side of the screen.
+					*/
+
+					$('.dataTables_paginate.paging_full_numbers.copy').remove();
+					$('.dataTables_paginate.paging_full_numbers:not(copy)').clone(true).addClass("copy").prependTo("#deals_table_wrapper");
+
+
+		        	$('input[aria-controls="deals_table"]').keypress(function() {
+		        		$('.dataTables_paginate.paging_full_numbers.copy').remove();
+	        			$('.dataTables_paginate.paging_full_numbers:not(copy)').clone(true).addClass("copy").prependTo("#deals_table_wrapper");
+	           		});
+
+	           		$('[aria-controls="deals_table"][name="deals_table_length"]').change(function() {
+		        		$('.dataTables_paginate.paging_full_numbers.copy').remove();
+	        			$('.dataTables_paginate.paging_full_numbers:not(copy)').clone(true).addClass("copy").prependTo("#deals_table_wrapper");
+	           		});
+
+	           		$.unblockUI()
+				},
+       		});
+
+        	// Filter box submits only after the user has finished typing
+        	var typingTimer;
+
+        	// On keyup, start the countdown
+        	$('#deals_table_filter input').unbind('keypress keyup')
+        	.bind('keypress keyup', function(e) {
+				typingTimer = setTimeout(function() {
+					historyTable.fnFilter($('#deals_table_filter input').val());
+				}, 1200);
+        	});
+
+        	// On keydown, clear the countdown
+        	$('#deals_table_filter input').unbind('keypress keydown')
+        	.bind('keypress keydown', function(e) {
+        	    clearTimeout(typingTimer);
+        	});
+		}
+
+		</script>
+
+
+		<script language="javascript" type="text/javascript">
+		        $(document).ready(function(){
+		        	setCurrentNav("listing");
+		        });
+		</script>
+
+{% endblock %}
+
+{% block subtitle %}
+<!-- <h2 id="panel_title">{% blocktrans %}History Listings{% endblocktrans %}</h2> -->
+{% endblock %}
+
+
+
+{% block content %}
+
+<!-- <div class="hdr">
+    <h3 class="cfn">{% blocktrans %}Resultados{% endblocktrans %}</h3>
+</div> -->
+
+{% block extra_reference %}
+{% endblock extra_reference %}
+
+	<div id="inner_content">
+		<div class="cnt noContent">
+	    	<p>{% blocktrans %}No hay datos cargados{% endblocktrans %}</p>
+		</div>
+	</div>
+
+	<div id="deals_table_container">
+	</div>
+
+	<table cellpadding="0" cellspacing="0" border="0" class="display" id="deals_table_template" style="display:none">
+		<thead>
+			<tr>
+				<th>{% blocktrans %}Offer{% endblocktrans %}</th>
+				<th>{% blocktrans %}Company{% endblocktrans %}</th>
+				<th>{% blocktrans %}Start Date{% endblocktrans %}</th>
+				<th>{% blocktrans %}End Date{% endblocktrans %}</th>
+				<th>{% blocktrans %}Price{% endblocktrans %}</th>
+				<th class="formatted-num">{% blocktrans %}Price U$S{% endblocktrans %}</th>
+				<th class="percent">{% blocktrans %}Discount{% endblocktrans %}</th>
+				<th>{% blocktrans %}Category{% endblocktrans %}</th>
+				<th>{% blocktrans %}Main Deal?{% endblocktrans %}</th>
+				<th>{% blocktrans %}#Sold{% endblocktrans %}</th>
+				{% if use_local_currency %}
+				<th class="formatted-num">{% blocktrans %}Total Sales{% endblocktrans %}</th>
+				{% else %}
+				<th class="formatted-num">{% blocktrans %}Total Sales U$S{% endblocktrans %}</th>
+				{% endif %}
+				<th>{% blocktrans %}Merchant{% endblocktrans %}</th>
+			</tr>
+		</thead>
+	</table>
+
+{% endblock %}
+

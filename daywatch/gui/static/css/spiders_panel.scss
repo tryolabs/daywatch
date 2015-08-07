@@ -1,0 +1,16 @@
+.spider-log {
+  padding: 0 15px;
+  margin-bottom: 15px;
+
+  .panel {
+
+    h2, h3 {
+      margin: 0;
+    }
+  }
+
+  .fail {
+    border: solid 1px #ddd;
+    border-radius: 4px;
+  }
+}

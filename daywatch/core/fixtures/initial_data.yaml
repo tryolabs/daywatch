@@ -1,0 +1,155 @@
+## Languages
+- model: core.Language
+  pk: 1
+  fields:
+    code: 'en'
+    name: 'English'
+- model: core.Language
+  pk: 2
+  fields:
+    code: 'es'
+    name: 'Spanish'
+- model: core.Language
+  pk: 3
+  fields:
+    code: 'pt'
+    name: 'Portuguese'
+- model: core.Language
+  pk: 4
+  fields:
+    code: 'id'
+    name: 'Indonesian'
+- model: core.Language
+  pk: 5
+  fields:
+    code: 'th'
+    name: 'Thai'
+
+
+## Countries
+- model: core.Country
+  pk: 1
+  fields:
+    name: USA
+    code: us
+    timezone: America/New_York
+    lang: 1
+- model: core.Country
+  pk: 2
+  fields:
+    name: Uruguay
+    code: uy
+    timezone: America/Montevideo
+    lang: 2
+- model: core.Country
+  pk: 3
+  fields:
+    name: Singapore
+    code: sg
+    timezone: Asia/Singapore
+    lang: 1
+- model: core.Country
+  pk: 4
+  fields:
+    name: Malaysia
+    code: my
+    timezone: Asia/Kuala_Lumpur
+    lang: 1
+- model: core.Country
+  pk: 5
+  fields:
+    name: Philippines
+    code: ph
+    timezone: Asia/Manila
+    lang: 1
+- model: core.Country
+  pk: 6
+  fields:
+    name: Thailand
+    code: th
+    timezone: Asia/Bangkok
+    lang: 5
+- model: core.Country
+  pk: 7
+  fields:
+    name: Indonesia
+    code: id
+    timezone: Asia/Jakarta
+    lang: 4
+
+
+## Currencies
+- model: core.Currency
+  pk: 1
+  fields:
+    country: 1
+    iso_code: USD
+    us_change: 1.0
+    regex: "[Uu]\\$[Ss]"
+    text: U$S
+- model: core.Currency
+  pk: 2
+  fields:
+    iso_code: UYU
+    country: 2
+    us_change: 0.045096
+    text: $U
+- model: core.Currency
+  pk: 3
+  fields:
+    iso_code: SGD
+    country: 3
+    us_change: 0.77997
+    regex: "[Ss]"
+    text: S$
+- model: core.Currency
+  pk: 4
+  fields:
+    iso_code: MYR
+    country: 4
+    us_change: 0.299895
+    regex: "(RM|rm)"
+    text: RM
+- model: core.Currency
+  pk: 5
+  fields:
+    iso_code: PHP
+    country: 5
+    us_change: 0.022371
+    regex: "(P|p|₱)"
+    text: ₱
+- model: core.Currency
+  pk: 6
+  fields:
+    iso_code: THB
+    country: 6
+    us_change: 0.030998
+    regex: "(฿)"
+    text: ฿
+- model: core.Currency
+  pk: 7
+  fields:
+    iso_code: IDR
+    country: 7
+    us_change: 9.1
+    regex: "(Rp|RP|rp|rP|Rp.)"
+    text: Rp.
+
+## Sites
+- model: core.Site
+  pk: 1
+  fields:
+    name: Test Site
+    image_path: test.jpg
+    url: http://www.dailysteals.com/
+    spider_name: test_spider
+    spider_enabled: yes
+    host_name: localhost
+    country: 1
+    shows_sold_count: yes
+
+## Retail category
+- model: core.Category
+  pl: 1
+  fields:
+    name: Retail

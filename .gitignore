@@ -1,0 +1,12 @@
+*.pyc
+*.log
+local_settings.py
+debug_settings.py
+.project
+.pydevproject
+org.eclipse.core.resources.prefs
+*.kate*
+*~
+\#*\#
+.vagrant
+_site/

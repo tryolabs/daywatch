@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Experimenting</title>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- D3 -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.4/d3.js"></script>
+    <!-- NVD3 -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.14-beta/nv.d3.js">
+    </script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.14-beta/nv.d3.css">
+    <!-- nvd3-tags -->
+    <script src="static/nvd3-tags/nvd3-tags.js"></script>
+    <link rel="stylesheet" href="static/nvd3-tags/nvd3-tags.css">
+  </head>
+  <body>
+    <h1>Line charts</h1>
+
+    <chart type="line"
+           title="Simple line chart"
+           height="300">
+      <data>
+        X axis, Y axis
+        1,1
+        2,4
+        3,9
+        4,16
+        5,25
+        6,36
+      </data>
+    </chart>
+
+    <chart type="line"
+           title="Line chart with formatting"
+           x-date-format="%x"
+           y-format="04d">
+      <data>
+        X Axis, Y Axis
+        1396530554328,145.2
+        1396530556789,120.0
+        1396530578473,333.1
+      </data>
+    </chart>
+
+    <chart type="line"
+           title="Line chart with multiple series"
+           x-date-format="%x">
+      <data>
+        Date, Company A sales,Company B sales,Company C sales
+        1396530554328,145.2,136.5,178
+        1396530556789,120.0,102.7,234
+        1396530578473,98.1,156.3,287.2
+      </data>
+    </chart>
+
+    <h1>Pie charts</h1>
+
+    <chart type="pie"
+           title="Simple pie chart">
+      <data>
+        A,25
+        B,25
+        C,40
+        D,10
+      </data>
+    </chart>
+
+    <chart type="pie"
+           title="Simple pie chart without flair"
+           tooltips="false"
+           legend="false">
+      <data>
+        A,25
+        B,25
+        C,40
+        D,10
+      </data>
+    </chart>
+
+    <h1>Stacked area charts</h1>
+
+    <chart type="stacked"
+           title="Simple stacked area chart">
+      <data>
+        Days,Company A sales,Company B sales
+        1,90,17
+        2,30,91
+        3,69,9
+        4,59,10
+        5,44,98
+      </data>
+    </chart>
+
+    <h1>Bar charts</h1>
+
+    <chart type="bar"
+           title="Simple bar chart">
+      <data>
+        A,25
+        B,25
+        C,40
+        D,10
+      </data>
+    </chart>
+
+  <script>
+    $(document).ready(function() { renderAll(); })
+  </script>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+{% extends "base_dashboard.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}
+
+		<link href="{{ STATIC_URL }}css/jquery.jqplot.css" type="text/css" rel="stylesheet">
+
+
+        <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/excanvas.min.js"></script><![endif]-->
+		<!-- <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}jquery-1.6.4.min.js"></script> -->
+		<script type='text/javascript' src='{{ STATIC_URL }}js/jquery.jqplot.js'></script>
+
+		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+  		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+  		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+
+  		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.highlighter.js"></script>
+		<script class="include" language="javascript" type="text/javascript" src="{{ STATIC_URL }}jqplot/plugins/jqplot.cursor.min.js"></script>
+
+        <script language="javascript" type="text/javascript">
+
+        $(document).ready(function(){
+      	  //var plot1 = $.jqplot ('chart1', [[3,7,9,1,4,6,8,2,5]]);
+      	  renderReports();
+      	});
+
+      	function renderReports(){
+
+            l1 = {{graph|safe}};
+
+            plot1 = $.jqplot('chart1',[l1],{
+            	title:'{% blocktrans %}Number of coupons sold{% endblocktrans %}',
+                axes: {
+                    xaxis: {
+                        renderer:$.jqplot.DateAxisRenderer,
+                        tickOptions:{formatString:'%b %#d\n%H:%M'},
+
+                        tickInterval:'{{interval}}'
+                    }
+                },
+
+                /*
+                highlighter: {
+	                show: true,
+	                sizeAdjust: 7.5
+                },
+                cursor: {
+                	show: false
+                },
+                */
+
+                highlighter: {
+                	show: false
+                },
+                cursor: {
+	                show: true,
+	                tooltipLocation:'sw'
+                },
+
+            	series:[{lineWidth:2, markerOptions:{show:false}}]
+            });
+
+        }
+
+        </script>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+	<div class="detail_deal">
+		<div class="detail_deal_column">
+
+			<span class="single_deal_field_label">
+				{% blocktrans %}Company: {% endblocktrans %}
+			</span>
+			<span class="single_deal_field_value">
+				<img class="deal_company_logo" src="{{ STATIC_URL }}{{deal.company.image_path}}"/>
+	  		</span>
+
+
+
+	   	    <span class="single_deal_field_label">
+				{% blocktrans %}Deal: {% endblocktrans %}
+			</span>
+			<span class="single_deal_field_value">
+				{{deal.offer}}
+	  		</span>
+		    <span class="single_deal_field_label">
+				{% blocktrans %}Category: {% endblocktrans %}
+			</span>
+			<span class="single_deal_field_value">
+				{{deal.category.name}}
+  			</span>
+		    <span class="single_deal_field_label">
+				{% blocktrans %}Start Date: {% endblocktrans %}
+			</span>
+			<span class="single_deal_field_value">
+				{{deal.start_date_time}}
+  			</span>
+  			{% if deal.end_date_time %}
+	  			<span class="single_deal_field_label">
+					{% blocktrans %}End Date: {% endblocktrans %}
+				</span>
+				<span class="single_deal_field_value">
+					{{deal.end_date_time}}
+	  			</span>
+	  		{% endif %}
+			<span class="single_deal_field_label">
+	    		{% blocktrans %}Price: {% endblocktrans %}
+	    	</span>
+	    	<span class="single_deal_field_value">
+	    		{{deal.price_str}}
+	   		</span>
+	   		<span class="single_deal_field_label">
+	   		{% blocktrans %}Discount: {% endblocktrans %}
+	   		</span>
+	   		<span class="single_deal_field_value">
+	    		{{deal.discount_str}}
+	    	</span>
+			<span class="single_deal_field_label">
+				{% blocktrans %}Sold Count: {% endblocktrans %}
+			</span>
+			<span class="single_deal_field_value">
+				{{deal.sold_count_str}}
+  			</span>
+			<span class="single_deal_field_label">
+				{% blocktrans %}Total Sales: {% endblocktrans %}
+			</span>
+			<span class="single_deal_field_value">
+			{% if use_local_currency %}
+				{{deal.total_sales_str}}
+			{% else %}
+				{{deal.total_sales_usd_str}}
+			{% endif %}
+  			</span>
+
+  			<span class="single_deal_field_label">
+				{% blocktrans %}Locations: {% endblocktrans %}
+			</span>
+			<span class="single_deal_field_value">
+				{{deal.cities_str}}
+  			</span>
+
+  			<span class="single_deal_field_label">
+				{% blocktrans %}Merchant: {% endblocktrans %}
+			</span>
+			<span class="single_deal_field_value">
+				<span id="merchant_trigger">{{deal.merchant_name_str}}</span>
+  			</span>
+  			{% if deal.has_merchant_address %}
+				<div class="blk02">
+				<div class="cnt">
+					<!--TODO: Put these styles in a CSS sheet -->
+					<p style="font-size: 12px;">{{deal.merchant_address_str}}</p>
+					<p style="font-size: 12px;">{{deal.merchant_phone_str}}</p>
+					{% if deal.has_merchant_lat_lon %}
+					<span class="single_deal_field_value">
+						<img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:blue|{{deal.merchant_lat_str}},{{deal.merchant_lon_str}}&amp;zoom=13&amp;size=250x250&amp;maptype=roadmap&amp;sensor=false">
+					</span>
+					{% endif %}
+				</div>
+				</div>
+			{% endif %}
+
+	    </div>
+
+
+
+	    <div class="detail_deal_column">
+
+			{% if deal.has_sold_count %}
+				<div id="chart1" class="detail_plot"></div>
+			{% endif %}
+
+		    <span class="single_deal_field_label">
+				{% blocktrans %}Link: {% endblocktrans %}
+			</span>
+			<span class="single_deal_field_value">
+		    <a href="{{deal.url}}">{% blocktrans %}View{% endblocktrans %}</a>
+		    </span>
+		    {% if user.is_staff %}
+		    <span class="single_deal_field_value">
+		    <a href="{{deal.admin_link}}">Edit</a>
+		    </span>
+		    {% endif %}
+
+
+	    </div>
+
+	</div>
+
+
+
+
+
+
+{% endblock %}
+

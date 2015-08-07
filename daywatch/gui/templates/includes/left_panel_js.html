@@ -1,0 +1,132 @@
+<script type="text/javascript">
+
+		color_refs =  [ "#058dc7", "#df1f5b", "#49b128", "#f5aa09", "#ff5910", "#ff5de4", "#666666", "#00fa9a", "#deb887", "#dcdcdc", "#ffc0cb"];
+
+        //color_refs = ["Crimson", "MediumBlue", "Green", "Gold", "Orchid", "DarkKhaki", "DarkOrange", "Sienna", "Silver", "MistyRose", "Magenta", "#cddf54", "#FBD178", "#26B4E3", "#bd70c7"];
+
+
+        function filter_companies() {
+        	var vals = companies[$('#id_country').val()];
+            $('input[id^="id_players"]').each(function(index) {
+            	$(this).removeAttr("checked");
+            	if (($(this).attr('value') in vals) && (($('#id_concept').val() == 'deals') || ($(this).attr('value') in companies_show_sold))){
+            		$(this).parent().parent().show()
+            	}else{
+            		$(this).parent().parent().hide()
+            	}
+            });
+            $('#id_all_companies').removeAttr('checked');
+		}
+
+		function submit_form(){
+			$.blockUI({
+			message : '<img style="padding-left: 20px; padding-top: 12px;" class="loading_spinner" src="{{ STATIC_URL }}images/loader.gif"/><h1 style="padding-left: 10px; float:left;line-height: 40px;padding-right: 20px;">Processing...</h1> ',
+			css : {
+				height : '40px'
+			 }});
+			selected_country = $('#id_country').val();
+			$('#graphForm').submit();
+		}
+
+        var companies = {{companies_countries|safe}};
+        var companies_show_sold = {{companies_show_sold|safe}};
+
+		$(document).ready(function() {
+			$("#id_start_date").attr( 'readOnly' , 'true' );
+            $("#id_start_date").datepicker({ showOn: 'both'});
+            $("#id_start_date").datepicker( "option", "dateFormat", 'yy-mm-dd' );
+
+            $("#id_end_date").attr( 'readOnly' , 'true' );
+            $("#id_end_date").datepicker({ showOn: 'both'})
+            $("#id_end_date").datepicker( "option", "dateFormat", 'yy-mm-dd' );
+
+		{% if form.start_date.value and form.end_date.value %}
+			$("#id_start_date").datepicker('setDate', new Date({{form.start_date.value.year}}, {{form.start_date.value.month}} - 1, {{form.start_date.value.day}}));
+			$("#id_end_date").datepicker('setDate', new Date({{form.end_date.value.year}}, {{form.end_date.value.month}} - 1, {{form.end_date.value.day}}));
+		{% else %}
+			$("#id_start_date").datepicker('setDate', new Date());
+			$("#id_end_date").datepicker('setDate', new Date());
+			$("#dates_div :input").attr('disabled', true);
+            $("#dates_div").hide();
+		{% endif %}
+
+            $('#id_period').change(function() {
+            	if ($('#id_period').val() == 'custom'){
+            		$("#dates_div :input").removeAttr('disabled');
+            		$("#dates_div").slideDown();
+            	}else{
+            		$("#dates_div :input").attr('disabled', true);
+            		$("#dates_div").slideUp();
+            	}
+           	});
+
+            $('#id_all_categories').change(function() {
+            	if ($('#id_all_categories').is(':checked')){
+            		$("#categories_div :input").attr('checked', true);
+            	}else{
+            		$("#categories_div :input").attr('checked', false);
+            	}
+           	});
+
+            $("#categories_div :input").attr('checked', true);
+            $("#id_all_categories").attr('checked', true);
+
+            $('#id_all_companies').change(function() {
+            	if ($('#id_all_companies').is(':checked')){
+            		$("#companies_div :input").each(function(index) {
+            			if ($(this).parent().parent().css('display') != 'none'){
+            				$(this).attr('checked', true);
+            			}
+            		});
+            	}else{
+            		$("#companies_div :input").attr('checked', false);
+            	}
+           	});
+
+            $('#id_country').change(filter_companies);
+            $('#id_concept').change(filter_companies);
+
+            $("#categories_div :input").change(function() {
+            	$('#id_all_categories').attr('checked', false);
+           	});
+
+            $("#companies_div :input").change(function() {
+            	$('#id_all_companies').attr('checked', false);
+           	});
+
+            filter_companies();
+
+            $("#companies_div :input").each(function(index) {
+    			if ($(this).parent().parent().css('display') != 'none'){
+    				$(this).attr('checked', true);
+    			}
+    		});
+            $("#id_all_companies").attr('checked', true);
+
+            //$('.tooltipped[title]').qtip();
+
+		});
+
+
+		function toggleAllCompanies(){
+			if ($('#id_all_companies').is(':checked')){
+            		$('#id_all_companies').attr('checked', false);
+            		$('#id_all_companies').trigger("change");
+            }else{
+            		$("#id_all_companies").attr('checked', true);
+            		$('#id_all_companies').trigger("change");
+            }
+		}
+
+        function toggleAllCategories(){
+			if ($('#id_all_categories').is(':checked')){
+            		$('#id_all_categories').attr('checked', false);
+            		$('#id_all_categories').trigger("change");
+            }else{
+            		$("#id_all_categories").attr('checked', true);
+            		$('#id_all_categories').trigger("change");
+            }
+		}
+
+</script>
+

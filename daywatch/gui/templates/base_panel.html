@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load compress %}
+
+{% block extrahead %}
+  {# bootstrap datepicker #}
+  <link rel="stylesheet" href="{{ STATIC_URL }}/bootstrap3-datepicker/css/datepicker.css">
+  <script src="{{ STATIC_URL }}/bootstrap3-datepicker/js/bootstrap-datepicker.js"></script>
+  {# nvd3 #}
+  <link rel="stylesheet" href="{{ STATIC_URL }}nvd3/nv.d3.min.css"/>
+  <script src="{{ STATIC_URL }}d3/d3.min.js"></script>
+  <script src="{{ STATIC_URL }}nvd3/nv.d3.min.js"></script>
+  {# nvd3-tags #}
+  <script src="{{ STATIC_URL }}nvd3-tags/nvd3-tags.js"></script>
+  <link rel="stylesheet" href="{{ STATIC_URL }}nvd3-tags/nvd3-tags.css"/>
+  {# datatables #}
+  <script src="{{ STATIC_URL }}datatables/media/js/jquery.dataTables.js"></script>
+  <link rel="stylesheet" href="{{ STATIC_URL }}datatables/media/css/jquery.dataTables.css"/>
+  {# datatables bootstrap integration #}
+  <script src="{{ STATIC_URL }}datatables-bootstrap3/BS3/assets/js/datatables.js"></script>
+  <link rel="stylesheet" href="{{ STATIC_URL }}datatables-bootstrap3/BS3/assets/css/datatables.css"/>
+  <script>
+   {% include "includes/left_panel.js" %}
+  </script>
+  {# spiders panel style #}
+  {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{{ STATIC_URL }}css/spiders_panel.scss">
+  {% endcompress %}
+{% endblock %}

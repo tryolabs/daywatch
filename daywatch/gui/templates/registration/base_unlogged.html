@@ -1,0 +1,13 @@
+{% load i18n %}
+<!DOCTYPE HTML>
+<html>
+  <head>
+    {% include "includes/html_head.html" %}
+  </head>
+  <body>
+    <div id="login-box" class="panel panel-default">
+      {% block content %}{% endblock %}
+    </div>
+    {% include "includes/footer.html" %}
+  </body>
+</html>

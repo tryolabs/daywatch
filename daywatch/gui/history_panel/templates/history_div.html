@@ -1,0 +1,35 @@
+{% load l10n %}
+{% load i18n %}
+{% load humanize %}
+
+{% if out_of_range_error %}
+	<div id="inner_content">
+		<div class="cnt noContent">
+			{% include "includes/range_error.html" %}
+		</div>
+	</div>
+
+{% else %}
+
+{% comment %}
+<div id="intelligence_reference_div">
+	{% for label, style in style_ref %}
+	<span class="intelligence_reference {{style}}">
+		<div class="fc-event fc-event-skin fc-event-hori fc-corner-left fc-corner-right">
+			<div class="fc-event-inner fc-event-skin">
+				<span class="fc-event-title">{{label}}
+				</span>
+			</div>
+		</div>
+	</span>
+	{% endfor %}
+</div>
+{% endcomment %}
+	
+	{% if out_of_range_warning %}
+		{% include "includes/range_error.html" %}
+	{% endif %}
+	
+	{% include "includes/history_table.html" %}
+	
+{% endif %}

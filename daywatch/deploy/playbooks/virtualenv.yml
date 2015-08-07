@@ -1,0 +1,25 @@
+# Create virtual environments
+
+- hosts: enabled
+  vars_files:
+    - '{{var_dir}}/paths.yml'
+
+  tasks:
+
+    - name: Copy .bashrc with additions for virtualenvwrapper
+      template: src={{template_dir}}/ubuntu/bashrc dest={{home}}/.bashrc
+
+    - name: Run the virtualenvwrapper script
+      command: bash /usr/local/bin/virtualenvwrapper.sh
+
+    - name: Create virtualenv
+      file: path={{virtualenv_dir}}/ state=directory
+      notify: Deploy virtualenv
+
+  handlers:
+    #  If the virtualenv folder was already there assume that virtualenv was
+    #  already deployed so that we don't need to overwrite python and therebye
+    #  shut down all python processes, so we only run this when it was not
+    #  there.
+    - name: Deploy virtualenv
+      command: virtualenv {{virtualenv_dir}}

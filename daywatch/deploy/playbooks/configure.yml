@@ -1,0 +1,19 @@
+# Playbook to set up the entire stack
+
+# General machine setup
+- include: install.yml var_dir={{var}}
+
+# Install the database
+- include: db.yml var_dir={{var}}
+
+# Create virtual environment
+- include: virtualenv.yml var_dir={{var}}
+
+# Install project requirements within the virtual environment
+- include: project.yml var_dir={{var}}
+
+# Server setup
+- include: server.yml var_dir={{var}}
+
+# Gunicorn and Supervisor setup
+- include: jobs.yml var_dir={{var}}

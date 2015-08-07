@@ -1,0 +1,132 @@
+{% extends "base_real_time.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}
+
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/demo_page.css" />
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/demo_table.css" />
+
+		<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery.dataTables.min.js"></script>
+
+        <script language="javascript" type="text/javascript">
+
+        jQuery.fn.dataTableExt.oSort['formatted-num-asc'] = function(a,b) {
+		    /* Remove any formatting */
+		    var x = a.match(/\d/) ? a.replace( /[^\d\-\.]/g, "" ) : 0;
+		    var y = b.match(/\d/) ? b.replace( /[^\d\-\.]/g, "" ) : 0;
+
+		    /* Parse and return */
+		    return parseFloat(x) - parseFloat(y);
+		};
+
+		jQuery.fn.dataTableExt.oSort['formatted-num-desc'] = function(a,b) {
+		    var x = a.match(/\d/) ? a.replace( /[^\d\-\.]/g, "" ) : 0;
+		    var y = b.match(/\d/) ? b.replace( /[^\d\-\.]/g, "" ) : 0;
+
+		    return parseFloat(y) - parseFloat(x);
+		};
+
+
+		jQuery.fn.dataTableExt.oSort['percent-asc']  = function(a,b) {
+		    var x = (a == "-") ? 0 : a.replace( /%/, "" );
+		    var y = (b == "-") ? 0 : b.replace( /%/, "" );
+		    x = parseFloat( x );
+		    y = parseFloat( y );
+		    return ((x < y) ? -1 : ((x > y) ?  1 : 0));
+		};
+
+		jQuery.fn.dataTableExt.oSort['percent-desc'] = function(a,b) {
+		    var x = (a == "-") ? 0 : a.replace( /%/, "" );
+		    var y = (b == "-") ? 0 : b.replace( /%/, "" );
+		    x = parseFloat( x );
+		    y = parseFloat( y );
+		    return ((x < y) ?  1 : ((x > y) ? -1 : 0));
+		};
+
+        $(document).ready(function(){
+        	var historyTable = $('#deals_table').dataTable(
+        		{
+
+        			"aoColumnDefs": [
+        			                 { "sType": "formatted-num", "aTargets": [ "formatted-num" ] },
+        			                 { "sType": "percent", "aTargets": [ "percent" ] }
+        			               ],
+
+					"aoColumns": [
+						{ "bSearchable": true, "sWidth": "17%"},
+						{ "bSearchable": false},
+						{ "bSearchable": false},
+						{ "bSearchable": false},
+						{ "bSearchable": false, "asSorting": [ "desc", "asc" ]},
+						{ "bSearchable": false, "asSorting": [ "desc", "asc" ]},
+						{ "bSearchable": false, "asSorting": [ "desc", "asc" ]},
+						{ "bSearchable": false},
+						{ "bSearchable": false, "asSorting": [ "desc", "asc" ]},
+						{ "bSearchable": false, "asSorting": [ "desc", "asc" ]},
+						{ "bSearchable": false, "asSorting": [ "desc", "asc" ]},
+						{ "bSearchable": true},
+					],
+
+        			"sPaginationType": "full_numbers",
+        			"iDisplayLength": 25
+        		}
+        	);
+
+        	$('#min').change(function() {
+        		historyTable.fnDraw();
+           	});
+
+        	$('#max').change(function() {
+        		historyTable.fnDraw();
+           	});
+
+ 	        $('.dataTables_paginate.paging_full_numbers:not(copy)').clone(true).addClass("copy").prependTo("#deals_table_wrapper");
+
+
+        	$('input[aria-controls="deals_table"]').keypress(function() {
+        		$('.dataTables_paginate.paging_full_numbers.copy').remove();
+    			$('.dataTables_paginate.paging_full_numbers:not(copy)').clone(true).addClass("copy").prependTo("#deals_table_wrapper");
+       		});
+
+       		$('[aria-controls="deals_table"][name="deals_table_length"]').change(function() {
+        		$('.dataTables_paginate.paging_full_numbers.copy').remove();
+    			$('.dataTables_paginate.paging_full_numbers:not(copy)').clone(true).addClass("copy").prependTo("#deals_table_wrapper");
+       		});
+
+        });
+
+        </script>
+
+{% endblock %}
+
+
+
+{% block reference %}
+
+{% comment %}
+{% for label, style in style_ref %}
+
+<span class="intelligence_reference {{style}}">
+	<div class="fc-event fc-event-skin fc-event-hori fc-corner-left fc-corner-right">
+		<div class="fc-event-inner fc-event-skin">
+			<span class="fc-event-title">{{label}}
+			</span>
+		</div>
+	</div>
+</span>
+
+{% endfor %}
+{% endcomment %}
+
+
+{% endblock %}
+
+{% block content %}
+<div id="intelligence_reference_div">
+</div>
+
+{% include "includes/history_table.html" %}
+
+{% endblock %}
+

@@ -1,0 +1,7 @@
+- hosts: enabled
+  vars_files:
+    - '{{var_dir}}/paths.yml'
+
+  tasks:
+    - name: Run tests.
+      command: '{{virtualenv_bin_dir}}/python manage.py test core'

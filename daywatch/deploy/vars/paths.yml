@@ -1,0 +1,50 @@
+log_dir: /var/log
+log_file: '{{log_dir}}/daywatch.log'
+
+user: '{{ansible_ssh_user}}'
+home: /home/{{user}}
+
+deploy_dir: '{{var_dir}}/..'
+
+# path to ansible templates
+template_dir: '{{deploy_dir}}/templates'
+
+# path to ansible scripts
+script_dir: '{{deploy_dir}}/scripts'
+
+# path to where the code will be deployed (repo cloned)
+repo_dir: '{{home}}/daywatch_platform'
+
+# path where the project's virtualenv will be created
+virtualenv_dir: '{{home}}/.virtualenvs/daywatch'
+
+# path to bin directory of project's virtualenv
+virtualenv_bin_dir: '{{virtualenv_dir}}/bin'
+
+# path to projects requirements.txt file
+project_reqs_file: '{{repo_dir}}/daywatch/requirements.txt'
+
+# path to django project settings.py
+django_settings_path: '{{repo_dir}}/daywatch/settings.py'
+
+# directory where django project manage.py is located
+django_manage_path: '{{repo_dir}}/daywatch'
+
+django_gui_path: '{{django_manage_path}}/gui'
+
+initial_data: '{{django_manage_path}}/core/fixtures/initial_data.yaml'
+
+# directory where postgres.conf file is located
+postgres_conf_path: /etc/postgresql/{{postgres_version}}/main
+
+jobs_path: /etc/supervisor/conf.d
+
+nginx_path: /etc/nginx
+nginx_conf: '{{nginx_path}}/nginx.conf'
+sites_available: '{{nginx_path}}/sites-available/daywatch.conf'
+sites_enabled: '{{nginx_path}}/sites-enabled/daywatch.conf'
+
+# python packages dir
+python_packages_path: '{{virtualenv_dir}}/lib/python2.7/site-packages'
+
+www_path: /var/www/daywatch

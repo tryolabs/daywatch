@@ -1,0 +1,97 @@
+
+
+	<script language="javascript" type="text/javascript">
+        
+        
+      	function renderReports(){
+      		series_visible = {0: 'false'};
+      		var ticks = [
+      		
+	      		{% for legend in month_legends %}
+				{% if forloop.last %}
+	  	        '{{legend}}'
+	  	        {% else %}
+	  	        '{{legend}}',
+	  	        {% endif %}
+	  	        {% endfor %}
+      		];
+      		
+      		{% for company in graphs %}
+				
+				{% for array in company.arrays %}
+	  	        var total_sales_s{{forloop.counter}} = {{array}};
+	  	      	{% endfor %}
+	  	        
+	  	      	var plot_bars{{forloop.counter}} = $.jqplot('plot_bars{{forloop.counter}}',[{% for value in company.arrays %} {% if forloop.last %} total_sales_s{{forloop.counter}} {% else %} total_sales_s{{forloop.counter}}, {% endif %} {% endfor %}], {
+	  	            
+	  	      		title:'{{trend_title}}',
+	  	      	
+	  	      		// The "seriesDefaults" option is an options object that will
+	  	            // be applied to all series in the chart.
+	  	            seriesDefaults:{
+	  	                renderer:$.jqplot.BarRenderer,
+	  	                rendererOptions: {fillToZero: true}
+	  	            },
+	  	            // Custom labels for the series are specified with the "label"
+	  	            // option on the series option.  Here a series option object
+	  	            // is specified for each series.
+	  	              	            
+	  	          	series:[
+							{% for legend in category_legends %}
+							{% if forloop.last %}
+		          	        {label:"{{legend}}"}
+		          	        {% else %}
+		          	        {label:"{{legend}}"},
+		          	        {% endif %}
+		          	        {% endfor %}
+		          	],
+	          	
+	  	            // Show the legend and put it outside the grid, but inside the
+	  	            // plot container, shrinking the grid to accomodate the legend.
+	  	            // A value of "outside" would not shrink the grid and allow
+	  	            // the legend to overflow the container.
+	  	            legend: {
+	  	                show: true,
+	  	                placement: 'outsideGrid'
+	  	            },
+	  	          	highlighter: {
+	                	show: true,
+	                	tooltipAxes: 'yref',
+	                	showMarker: false,
+	                	tooltipSeparator: ' | ',
+	                },
+	  	            axes: {
+	  	                // Use a category axis on the x axis and use our custom ticks.
+	  	                xaxis: {
+	  	                    renderer: $.jqplot.CategoryAxisRenderer,
+	  	                    ticks: ticks
+	  	                },
+	  	                // Pad the y axis just a little so bars can get close to, but
+	  	                // not touch, the grid boundaries.  1.2 is the default padding.
+	  	                yaxis: {
+	  	                	min:0,
+	  	                    pad: 1.05,
+	  	                    tickInterval: {{company.interval_value}},
+	  	                    tickOptions: {formatString: '{{trend_y_legend}}'}
+	  	                },
+	  	                 
+	  	                
+	  	            }
+	  	        });
+            
+	  		{% endfor %}
+        } 
+
+    </script>
+    
+
+    {% for company in graphs %}
+    <div class="hdr">
+    	<h3 class="cfn"> {{company.company_name}} </h3>
+	</div>
+    
+	<div id="plot_bars{{forloop.counter}}" class="history_bar"></div>
+	{% endfor %}
+	
+	
+	

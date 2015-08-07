@@ -1,0 +1,344 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-19 11:41-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gui/forms.py:11
+msgid "Last 7 days"
+msgstr "Ultimos 7 dias"
+
+#: gui/forms.py:12
+msgid "Last 15 days"
+msgstr "Ultimos 15 dias"
+
+#: gui/forms.py:13
+msgid "Last 30 days"
+msgstr "Ultimos 30 dias"
+
+#: gui/forms.py:14
+msgid "Custom"
+msgstr "Personalizado"
+
+#: gui/forms.py:18
+msgid "Sales"
+msgstr "Ventas"
+
+#: gui/forms.py:19
+msgid "# Items Offered"
+msgstr "# Ofrecidos"
+
+#: gui/forms.py:20
+msgid "# Items Sold"
+msgstr "# Vendidos"
+
+#: gui/analytics_panel/templates/analytics_panel.html:11
+#: gui/items_panel/templates/items_panel.html:11
+#: gui/spiders_panel/templates/spiders_panel.html:11
+#: gui/trends_panel/templates/trends_panel.html:11
+msgid "Country:"
+msgstr "Pais:"
+
+#: gui/analytics_panel/templates/analytics_panel.html:20
+#: gui/analytics_panel/templates/analytics_panel.html:68
+#: gui/items_panel/templates/items_panel.html:57
+#: gui/spiders_panel/templates/spiders_panel.html:57
+#: gui/trends_panel/templates/trends_panel.html:57
+msgid "Result:"
+msgstr "Resultado:"
+
+#: gui/analytics_panel/templates/analytics_panel.html:29
+#: gui/items_panel/templates/items_panel.html:20
+#: gui/spiders_panel/templates/spiders_panel.html:20
+#: gui/trends_panel/templates/trends_panel.html:20
+msgid "Period:"
+msgstr "Periodo:"
+
+#: gui/analytics_panel/templates/analytics_panel.html:40
+#: gui/items_panel/templates/items_panel.html:30
+#: gui/spiders_panel/templates/spiders_panel.html:30
+#: gui/trends_panel/templates/trends_panel.html:30
+msgid "Start Date:"
+msgstr "Fecha de Comienzo:"
+
+#: gui/analytics_panel/templates/analytics_panel.html:49
+#: gui/items_panel/templates/items_panel.html:39
+#: gui/spiders_panel/templates/spiders_panel.html:39
+#: gui/trends_panel/templates/trends_panel.html:39
+msgid "End Date:"
+msgstr "Fecha de Fin:"
+
+#: gui/analytics_panel/templates/analytics_panel.html:59
+#: gui/items_panel/templates/items_panel.html:48
+#: gui/spiders_panel/templates/spiders_panel.html:48
+#: gui/trends_panel/templates/trends_panel.html:48
+msgid "Companies:"
+msgstr "Compañías:"
+
+#: gui/analytics_panel/templates/analytics_panel.html:63
+#: gui/items_panel/templates/items_panel.html:52
+#: gui/spiders_panel/templates/spiders_panel.html:52
+#: gui/trends_panel/templates/trends_panel.html:52
+msgid "All Companies"
+msgstr "Todas las Compañías"
+
+#: gui/analytics_panel/templates/analytics_panel.html:76
+msgid "Categories:"
+msgstr "Categorias:"
+
+#: gui/analytics_panel/templates/analytics_panel.html:79
+msgid "All Categories"
+msgstr "Todas las Categorias"
+
+#: gui/analytics_panel/templates/analytics_panel.html:89
+#: gui/items_panel/templates/items_panel.html:71
+#: gui/spiders_panel/templates/spiders_panel.html:66
+#: gui/trends_panel/templates/trends_panel.html:71
+msgid "Update"
+msgstr "Actualizar"
+
+#: gui/items_panel/templates/items_panel.html:65
+#: gui/trends_panel/templates/trends_panel.html:65
+msgid "Fields:"
+msgstr "Campos:"
+
+#: gui/templates/404.html:3 gui/templates/404.html.py:6
+msgid "Page not found"
+msgstr "Pagina no encontrada"
+
+#: gui/templates/404.html:7
+msgid "Sorry, the requested page could not be found."
+msgstr "Lo sentimos, la pagina no fue encontrada."
+
+#: gui/templates/500.html:5 gui/templates/500.html.py:10
+msgid "Page unavailable"
+msgstr "Pagina no disponible"
+
+#: gui/templates/500.html:11
+msgid "Sorry, the requested page is unavailable."
+msgstr "Lo sentimos, la pagina no esta disponible."
+
+#: gui/templates/500.html:12
+msgid "Our team have been notified, please check back later."
+msgstr "Nuestro equipo fue notificado, por favor revise despues."
+
+#: gui/templates/includes/footer.html:3
+msgid "all rights reserved"
+msgstr "todos los derechos reservados"
+
+#: gui/templates/includes/footer.html:5
+msgid "Contact us"
+msgstr "Contactenos"
+
+#: gui/templates/includes/login_bar.html:16
+msgid "Admin Panel"
+msgstr "Panel de Administracion"
+
+#: gui/templates/includes/login_bar.html:22
+#: gui/templates/registration/login.html:25
+msgid "Password"
+msgstr "Contraseña"
+
+#: gui/templates/includes/login_bar.html:27
+msgid "Logout"
+msgstr "Cerrar Sesion"
+
+#: gui/templates/includes/login_bar.html:34
+#: gui/templates/registration/login.html:31
+msgid "Login"
+msgstr "Entrar"
+
+#: gui/templates/includes/menu.html:6
+msgid "Items Panel"
+msgstr "Panel de Objetos"
+
+#: gui/templates/includes/menu.html:12 gui/templates/main/index.html:7
+msgid "Analytics Panel"
+msgstr "Panel de Analitica"
+
+#: gui/templates/includes/menu.html:18
+msgid "Trends Panel"
+msgstr "Panel de Tendencias"
+
+#: gui/templates/includes/menu.html:24 gui/templates/main/index.html:14
+msgid "Spiders Panel"
+msgstr "Panel de Spiders"
+
+#: gui/templates/includes/no_data.html:3
+msgid "No data loaded."
+msgstr "No hay datos cargados."
+
+#: gui/templates/includes/range_error.html:5
+msgid "Range error, history limited to: "
+msgstr "Error de rango de fechas, la historia esta limitada a: "
+
+#: gui/templates/main/error.html:4 gui/templates/main/error.html.py:7
+msgid "Server Error"
+msgstr "Error del Servidor"
+
+#: gui/templates/main/error.html:8
+msgid "Sorry, server error, please try again or report to admin."
+msgstr "Lo sentimos, hubo un error de servidor. Por favor reportelo intente de
+nuevo o reportelo al administrador."
+
+#: gui/templates/main/form_error.html:4
+msgid "Query Error"
+msgstr "Error de Consulta"
+
+#: gui/templates/main/form_error.html:5
+msgid "Wrong query parameters."
+msgstr "Parametros de consulta erroneos"
+
+#: gui/templates/main/index.html:8
+msgid "Analytics Panel description."
+msgstr ""
+
+#: gui/templates/main/index.html:10
+msgid "Access Analytics Panel"
+msgstr "Acceder al Panel de Analitica"
+
+#: gui/templates/main/index.html:15
+msgid "Spiders Panel description."
+msgstr ""
+
+#: gui/templates/main/index.html:17
+msgid "Access Spiders Panel"
+msgstr "Acceder al Panel de Spiders"
+
+#: gui/templates/main/no_results.html:4
+msgid "No Results"
+msgstr "No hay resultados"
+
+#: gui/templates/main/no_results.html:5
+msgid "No results were found for that query."
+msgstr "No se encontraron resultados para esa consulta."
+
+#: gui/templates/main/warning.html:9
+msgid "Warning!"
+msgstr "Advertencia!"
+
+#: gui/templates/main/warning.html:10
+#, python-format
+msgid " %(message)s "
+msgstr ""
+
+#: gui/templates/registration/login.html:6
+msgid "Platform Access"
+msgstr "Acceso a la Plataforma"
+
+#: gui/templates/registration/login.html:18
+msgid "Username"
+msgstr "Nombre de Usuario"
+
+#: gui/templates/registration/password_change_done.html:7
+msgid "Password change successful"
+msgstr "Cambio de contraseña exitoso"
+
+#: gui/templates/registration/password_change_done.html:12
+msgid "Your password was changed."
+msgstr "Su contraseña fue cambiada."
+
+#: gui/templates/registration/password_change_form.html:4
+#: gui/templates/registration/password_change_form.html:6
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: gui/templates/registration/password_change_form.html:17
+msgid "Old password:"
+msgstr "Contraseña vieja:"
+
+#: gui/templates/registration/password_change_form.html:24
+msgid "New password:"
+msgstr "Contraseña nueva:"
+
+#: gui/templates/registration/password_change_form.html:31
+msgid "Password (again):"
+msgstr "Contraseña (de nuevo):"
+
+#: gui/templates/registration/password_change_form.html:38
+#: gui/templates/registration/password_reset_confirm.html:21
+msgid "Change my password"
+msgstr "Cambiar mi contraseña"
+
+#: gui/templates/registration/password_reset_complete.html:6
+msgid "Your password has been set. You may go ahead and log in now."
+msgstr "Su contraseña fue grabada. Puede entrar a la plataforma ahora."
+
+#: gui/templates/registration/password_reset_complete.html:7
+msgid "Log in"
+msgstr "Entrar"
+
+#: gui/templates/registration/password_reset_confirm.html:3
+#: gui/templates/registration/password_reset_form.html:4
+#: gui/templates/registration/password_reset_form.html:6
+msgid "Password reset"
+msgstr "Restablecer contraseña"
+
+#: gui/templates/registration/password_reset_confirm.html:7
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr "Por favor ingrese su contraseña dos veces para verificar que fue
+ingresada correctamente."
+
+#: gui/templates/registration/password_reset_confirm.html:12
+msgid "New password"
+msgstr "Contraseña nueva"
+
+#: gui/templates/registration/password_reset_confirm.html:16
+msgid "Confirm password"
+msgstr "Confirmar contraseña"
+
+#: gui/templates/registration/password_reset_confirm.html:26
+msgid "Password reset unsuccessful"
+msgstr "El restablecimiento de contraseña fallo"
+
+#: gui/templates/registration/password_reset_confirm.html:27
+msgid ""
+"The password reset link was invalid, possibly because it\n"
+"    has already been used.  Please request a new password reset."
+msgstr "El vinculo de restablecimiento de contraseña es invalido, posiblemente
+porque ya se uso. Por favor intente de nuevo."
+
+#: gui/templates/registration/password_reset_done.html:3
+msgid "Password reset successful"
+msgstr "Restablecimiento de contraseña exitoso"
+
+#: gui/templates/registration/password_reset_done.html:6
+msgid ""
+"We've e-mailed you instructions for setting your password to the e-mail "
+"address you submitted."
+msgstr "Le enviamos un e-mail con instrucciones para restablecer la contraseña."
+
+#: gui/templates/registration/password_reset_done.html:7
+msgid "You should be receiving it shortly."
+msgstr "Deberia recibirlo pronto."
+
+#: gui/templates/registration/password_reset_form.html:9
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll e-mail "
+"instructions for setting a new one."
+msgstr "Olvido su contraseña? Ingrese su direccion de e-mail abajo y le
+enviaremos las instrucciones para restablecer su contraseña."
+
+#: gui/templates/registration/password_reset_form.html:17
+msgid "E-mail address"
+msgstr "Direccion de e-mail"
+
+#: gui/templates/registration/password_reset_form.html:28
+msgid "Reset my password"
+msgstr "Restablecer mi contraseña"

@@ -1,0 +1,7 @@
+deploy_addr: 0.0.0.0
+gunicorn_port: 9000
+keep_alive: 3
+job_name: daywatch
+num_workers: 1
+# Change this as needed
+cpu_cores: 1

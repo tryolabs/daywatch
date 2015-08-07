@@ -1,0 +1,4 @@
+db_user: daywatch
+db_pass: daywatch
+db_name: daywatch_db
+postgres_version: 9.3

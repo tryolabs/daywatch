@@ -1,0 +1,5 @@
+vagrant         ansible_ssh_host=192.168.45.10 ansible_ssh_user=vagrant
+prod            ansible_ssh_host=ec2-54-241-115-69.us-west-1.compute.amazonaws.com ansible_ssh_user=ubuntu
+
+[enabled]
+vagrant

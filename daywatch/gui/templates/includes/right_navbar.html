@@ -1,0 +1,49 @@
+{% load i18n %}
+
+{% if status.logged_in %}
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      {% if user.first_name %}
+        {{ user.first_name }}
+      {% else %}
+        {{ user.username }}
+      {% endif %}
+    </a>
+    <ul class="dropdown-menu">
+      {% if user.is_staff %}
+        <li>
+          <a href="{% url "admin:index" %}">
+            {% blocktrans %}Admin Panel{% endblocktrans %}
+          </a>
+        </li>
+      {% endif %}
+      <li>
+        <a href="{% url "password_change" %}">
+          {% blocktrans %}Password{% endblocktrans %}
+        </a>
+      </li>
+      <li>
+        <a href="{%url "logout" %}">
+          {% blocktrans %}Logout{% endblocktrans %}
+        </a>
+      </li>
+    </ul>
+  </li>
+{% else %}
+  <li>
+    <a href="{%url "login" %}" >{% blocktrans %}Login{% endblocktrans %}</a>
+  </li>
+{% endif %}
+
+<li>
+  <a href='{% url "set_language" %}?language=en&next={{ request.get_full_path|urlencode }}'
+     class="lang{% if LANGUAGE_CODE = 'en' %} active{% endif %}">
+    <img src="{{ STATIC_URL }}images/flags/us.png" title="English (en)" alt="English (en)">
+  </a>
+</li>
+<li>
+  <a href='{% url "set_language" %}?language=es&next={{ request.get_full_path|urlencode }}'
+     class="lang{% if LANGUAGE_CODE = 'es' %} active{% endif %}">
+    <img src="{{ STATIC_URL }}images/flags/es.png" title="Español (es)" alt="Español (es)">
+  </a>
+</li>

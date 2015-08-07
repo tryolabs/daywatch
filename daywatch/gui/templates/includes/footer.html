@@ -1,0 +1,8 @@
+{% load i18n %}
+<footer>
+  &copy;2011-{% now "Y" %} | DayWatch -  {% blocktrans %}all rights reserved{% endblocktrans %}  |
+  <a href="http://www.usedaywatch.com/" target="_blank">
+    {% blocktrans %}Contact us{% endblocktrans %}
+  </a>
+  <img src="{{ STATIC_URL }}images/logo_small.png" class="logo pull-right">
+</footer>

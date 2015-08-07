@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans %}Server Error{% endblocktrans %}{% endblock %}
+
+{% block content %}
+  <h2>{% blocktrans %}Server Error{% endblocktrans %}</h2>
+  <p>{% blocktrans %}Sorry, server error, please try again or report to admin.{% endblocktrans %}</p>
+{% endblock %}

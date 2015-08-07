@@ -1,0 +1,23 @@
+{% load bootstrap_pagination %}
+{% load filters %}
+
+<table id="items" class="table table-bordered table-striped">
+  <thead>
+    {% for field in fields %}
+      <th>{{field | title}}</th>
+    {% endfor %}
+  </thead>
+  <tbody>
+    {% for item in items %}
+      </thead>
+      <tr>
+        {% for field in fields %}
+          <td>
+            {{ item | lookup:field }}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% bootstrap_paginate items range=10 %}

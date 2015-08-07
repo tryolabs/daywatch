@@ -1,0 +1,44 @@
+{% load i18n %}
+
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#daywatch-navbar">
+        <span class="sr-only">Toggle menu</span>
+        <span class="fa fa-bars"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="daywatch-navbar">
+      <ul class="nav navbar-nav navbar-left">
+        <li>
+          <a id="menu_items" href='{%url "item_listings" %}'>
+            <i class="fa fa-database"></i>
+            <span>{% blocktrans %}Items Panel{% endblocktrans %}</span>
+          </a>
+        </li>
+        <li>
+          <a id="menu_analytics" href='{%url "analytics_panel_home" %}'>
+            <i class="fa fa-dashboard"></i>
+            <span>{% blocktrans %}Analytics Panel{% endblocktrans %}</span>
+          </a>
+        </li>
+        <li>
+          <a id="menu_trends" href='{%url "trends_listings" %}'>
+            <i class="fa fa-signal"></i>
+            <span>{% blocktrans %}Trends Panel{% endblocktrans %}</span>
+          </a>
+        </li>
+        <li>
+          <a id="menu_spiders" href='{%url "spiders_panel_home" %}'>
+            <i class="fa fa-tasks"></i>
+            <span>{% blocktrans %}Spiders Panel{% endblocktrans %}</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% include "includes/right_navbar.html" %}
+      </ul>
+    </div>
+  </div>
+</nav>

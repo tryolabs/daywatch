@@ -1,0 +1,19 @@
+# Set up Supervisor jobs
+
+- hosts: enabled
+  sudo: True
+  vars_files:
+    - '{{var_dir}}/paths.yml'
+    - '{{var_dir}}/server.yml'
+
+  tasks:
+    - name: Create Gunicorn configuration file
+      template: src={{template_dir}}/jobs/daywatch.conf
+                dest={{jobs_path}}/daywatch.conf
+
+    - name: Create Celery configuration file
+      template: src={{template_dir}}/jobs/celery.conf
+                dest={{jobs_path}}/celery.conf
+
+    - name: Update supervisor config
+      command: supervisorctl reload; supervisorctl update

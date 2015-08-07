@@ -1,0 +1,23 @@
+{% load compress %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}DayWatch{% endblock %}</title>
+<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" />
+<link rel="apple-touch-icon" href="{{ STATIC_URL }}images/apple-touch-icon.png" />
+
+{# jquery #}
+<script src="{{ STATIC_URL }}jquery/dist/jquery.min.js"></script>
+
+{# bootstrap #}
+<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/dist/css/bootstrap.min.css">
+<script src="{{ STATIC_URL }}bootstrap/dist/js/bootstrap.min.js"></script>
+
+{# fontawesome #}
+<link href="{{ STATIC_URL }}fontawesome/css/font-awesome.min.css" rel="stylesheet">
+
+{% compress css %}
+  <link rel="stylesheet" type="text/x-scss" href="{{ STATIC_URL }}css/style.scss">
+{% endcompress %}
+
+<script src="{{ STATIC_URL }}js/head.js"></script>

@@ -1,0 +1,32 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include "includes/html_head.html" %}
+    {% block extrahead %}
+    {% endblock %}
+  </head>
+
+  {% block body %}
+  <body>
+    {% include "includes/navbar.html" %}
+
+    {% block header %}
+    {% endblock %}
+
+    <div class='row'>
+      <div class='sidebar col-md-3'>
+        {% block sidebar %}
+        {% endblock %}
+      </div>
+
+      <div id='content' class='col-md-9'>
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+  </body>
+  {% endblock %}
+</html>

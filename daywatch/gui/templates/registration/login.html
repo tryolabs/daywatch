@@ -1,0 +1,34 @@
+{% extends 'registration/base_unlogged.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block title %}
+  {% blocktrans %}Platform Access{% endblocktrans %}
+{% endblock %}
+
+{% block content %}
+  {% if form.non_field_errors %}
+    {{ form.non_field_errors }}
+  {% endif %}
+
+  <form action="{% url "login" %}" method="post" role="form" class="panel-body form-horizontal">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_username">
+        {% blocktrans %}Username{% endblocktrans %}
+      </label>
+      {{ form.username }}
+      {{ form.username.errors }}
+    </div>
+    <div class="form-group">
+      <label for="id_password">
+        {% blocktrans %}Password{% endblocktrans %}
+      </label>
+      {{ form.password }}
+      {{ form.password.errors }}
+    </div>
+    <button type="submit"class="btn btn-default">
+      {% blocktrans %}Login{% endblocktrans %}
+    </button>
+  </form>
+{% endblock %}

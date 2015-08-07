@@ -1,0 +1,71 @@
+{% load i18n %}
+{% load l10n %}
+{% load humanize %}
+
+<div class="analytics-results">
+  <h3>{{result_type_name}} per Site</h3>
+
+  <chart type="bar">
+    <data>
+      {% for company, num in analysis.result_type_per_site %}
+        {{company.name}},{{num}}
+      {% endfor %}
+    </data>
+  </chart>
+
+  <h3>{{result_type_name}} per Category</h3>
+
+  <chart type="bar">
+    <data>
+      {% for category, num in analysis.result_type_per_cat %}
+        {{category}},{{num}}
+      {% endfor %}
+    </data>
+  </chart>
+
+  <h3>{{result_type_name}} per Category per Site</h3>
+
+  {% for site, list in analysis.cat_result_type_per_site %}
+    <h4>{{site}}</h4>
+    <chart type="bar">
+      <data>
+        {% for category, num in list %}
+          {{category}},{{num}}
+        {% endfor %}
+      </data>
+    </chart>
+  {% endfor %}
+
+  <h3>{{result_type_name}} per Site per Category</h3>
+
+  {% for category, list in analysis.site_result_type_per_cat %}
+    <h4>{{category}}</h4>
+    <chart type="bar">
+      <data>
+        {% for site, num in list %}
+          {{site}},{{num}}
+        {% endfor %}
+      </data>
+    </chart>
+  {% endfor %}
+
+  <h3>{{result_type_name}} share per Category</h3>
+
+  <chart type="pie">
+    <data>
+      {% for company, share in analysis.result_type_share_per_site %}
+        {{company.name}},{{share}}
+      {% endfor %}
+    </data>
+  </chart>
+
+  <h3>{{result_type_name}} share per Category</h3>
+
+  <chart type="pie">
+    <data>
+      {% for company, share in analysis.result_type_share_per_cat %}
+        {{company.name}},{{share}}
+      {% endfor %}
+    </data>
+  </chart>
+</div>

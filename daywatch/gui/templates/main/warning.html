@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}DayWatch{% endblock %}
+
+{% block header %}
+  <div class="alert alert-warning">
+    <p>
+      <strong>{% blocktrans %}Warning!{% endblocktrans %}</strong>
+      {% blocktrans %} {{message}} {% endblocktrans %}
+    </p>
+  </div>
+{% endblock %}

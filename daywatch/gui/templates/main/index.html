@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block header %}
+  <div id="dashboard" class="row">
+    <section class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% blocktrans %}Analytics Panel{% endblocktrans %}</h3>
+        </div>
+        <div class="panel-body">
+          <p>{% blocktrans %}Analytics Panel description.{% endblocktrans %}</p>
+          <a href="{% url "analytics_panel_home" %}">
+            {% blocktrans %}Access Analytics Panel{% endblocktrans %}
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{% blocktrans %}Spiders Panel{% endblocktrans %}</h3>
+        </div>
+        <div class="panel-body">
+          <p>{% blocktrans %}Spiders Panel description.{% endblocktrans %}</p>
+          <a href="{% url "spiders_panel_home" %}">
+            {% blocktrans %}Access Spiders Panel{% endblocktrans %}
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock %}

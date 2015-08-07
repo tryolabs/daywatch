@@ -1,0 +1,52 @@
+# Set up project-specific stuff
+
+- hosts: enabled
+  vars_files:
+    - '{{var_dir}}/paths.yml'
+    - '{{var_dir}}/db.yml'
+    - '{{var_dir}}/server.yml'
+    - '{{var_dir}}/monkeylearn.yml'
+
+  tasks:
+
+    - name: Install Python requirements
+      pip: requirements={{project_reqs_file}} virtualenv={{virtualenv_dir}} state=present
+
+    - name: Install Bower dependencies
+      command: chdir={{django_gui_path}} bower install
+
+    - name: Copy local_settings.py
+      template: src={{template_dir}}/local_settings.py
+                dest={{django_manage_path}}/core/local_settings.py
+
+    - name: Create log file and change its permissions
+      file: path={{log_file}} owner={{user}} state=touch
+      sudo: yes
+
+    - name: Run syncdb on the application
+      django_manage: >
+          command=syncdb
+          app_path={{django_manage_path}}
+          virtualenv={{virtualenv_dir}}
+
+    - name: Migrate core app
+      command: '{{virtualenv_bin_dir}}/python {{django_manage_path}}/manage.py migrate core'
+      ignore_errors: yes
+
+    - name: Migrate the rest
+      command: '{{virtualenv_bin_dir}}/python {{django_manage_path}}/manage.py migrate'
+      ignore_errors: yes
+
+    - name: Create cache table
+      command: '{{virtualenv_bin_dir}}/python {{django_manage_path}}/manage.py createcachetable main_cache'
+      ignore_errors: yes
+
+    - name: Load initial data.
+      django_manage: >
+          command=loaddata
+          app_path={{django_manage_path}}
+          virtualenv={{virtualenv_dir}}
+          fixtures={{initial_data}}
+
+    - name: Collect static files
+      command: '{{virtualenv_bin_dir}}/python {{django_manage_path}}/manage.py collectstatic --noinput'

@@ -1,0 +1,35 @@
+#  Install the database server and copy custom configuration
+
+- hosts: enabled
+  sudo: True
+  vars_files:
+    - '{{var_dir}}/db.yml'
+    - '{{var_dir}}/paths.yml'
+
+  tasks:
+    - name: Install Postgres.
+      apt: pkg={{item}} state=installed
+      with_items:
+        - postgresql-{{postgres_version}}
+        - postgresql-client-{{postgres_version}}
+        - postgresql-server-dev-{{postgres_version}}
+        - postgresql-plpython-{{postgres_version}}
+        - python-psycopg2
+
+    - name: Restart postgres service
+      service: name=postgresql state=started
+
+    - name: Create database user
+      postgresql_user: name={{db_user}} password={{db_pass}}
+                       role_attr_flags=LOGIN,CREATEDB
+      sudo_user: postgres
+
+    - name: Create database
+      postgresql_db: db={{db_name}} owner={{db_user}} encoding=utf8
+                     template=template0
+      sudo_user: postgres
+
+    - name: Grant privileges
+      command: psql -d {{db_name}}
+               -c "GRANT ALL PRIVILEGES ON DATABASE {{db_name}} TO {{db_user}};"
+      sudo_user: postgres

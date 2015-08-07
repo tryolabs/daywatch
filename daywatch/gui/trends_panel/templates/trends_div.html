@@ -1,0 +1,28 @@
+<div class="trends-results">
+  {% for field, evol in evolution.items %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Evolution in <code>{{field}}</code></h3>
+      </div>
+      <div class="panel-body">
+        {% if evol %}
+          <chart type="line"
+                 height="400"
+                 y-format=".02f"
+                 x-date-format="%x">
+            <data>
+              Date, Value
+              {% for date, value in evol %}
+                {{date}},{{value}}
+              {% endfor %}
+            </data>
+          </chart>
+        {% else %}
+          <div class="nothing">
+            No evolution for this field in this time period.
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
