@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API &mdash; DayWatch 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="DayWatch 0.1 documentation" href="index.html" />
+    <link rel="next" title="Fixtures" href="fixtures.html" />
+    <link rel="prev" title="Spiders" href="spiders.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>DayWatch 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>API</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="spiders.html">Spiders</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="fixtures.html">Fixtures</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="items">
+<h2>Items<a class="headerlink" href="#items" title="Permalink to this headline">¶</a></h2>
+<p>The Items API allows you to access the data of the <a class="reference internal" href="panels.html#items-panel"><em>Items Panel</em></a>.</p>
+<div class="section" id="query-parameters">
+<h3>Query Parameters<a class="headerlink" href="#query-parameters" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">min_price</span></tt> and <tt class="code docutils literal"><span class="pre">max_price</span></tt></dt>
+<dd>Specify a price range.</dd>
+<dt><tt class="code docutils literal"><span class="pre">min_discount</span></tt> and <tt class="code docutils literal"><span class="pre">max_discount</span></tt></dt>
+<dd>Specify a discount range.</dd>
+<dt><tt class="code docutils literal"><span class="pre">start</span></tt> and <tt class="code docutils literal"><span class="pre">end</span></tt></dt>
+<dd>Specify a date range.</dd>
+<dt><tt class="code docutils literal"><span class="pre">category</span></tt></dt>
+<dd>Only items with this category.</dd>
+<dt><tt class="code docutils literal"><span class="pre">site</span></tt></dt>
+<dd>Only items offered on this site.</dd>
+<dt><tt class="code docutils literal"><span class="pre">merchant</span></tt></dt>
+<dd>Only items sold by this merchant.</dd>
+<dt><tt class="code docutils literal"><span class="pre">active</span></tt></dt>
+<dd>Whether the item is actively tracked or historical.</dd>
+</dl>
+</div>
+<div class="section" id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">hash_id</span></tt></dt>
+<dd>Usually a SHA-256 of the slug in the <tt class="code docutils literal"><span class="pre">url</span></tt>, sans query parameters.</dd>
+<dt><tt class="code docutils literal"><span class="pre">offer</span></tt></dt>
+<dd>Offer&#8217;s title.</dd>
+<dt><tt class="code docutils literal"><span class="pre">url</span></tt></dt>
+<dd>Offer URL</dd>
+<dt><tt class="code docutils literal"><span class="pre">category</span></tt></dt>
+<dd>Name of the category.</dd>
+<dt><tt class="code docutils literal"><span class="pre">description</span></tt></dt>
+<dd>(Optional) description of the offer.</dd>
+<dt><tt class="code docutils literal"><span class="pre">site</span></tt></dt>
+<dd>ID of the site the offer was extracted from. See Sites.</dd>
+<dt><tt class="code docutils literal"><span class="pre">currency</span></tt></dt>
+<dd>ISO code of the price&#8217;s currency.</dd>
+<dt><tt class="code docutils literal"><span class="pre">price</span></tt></dt>
+<dd>Numerical value of the price.</dd>
+<dt><tt class="code docutils literal"><span class="pre">discount</span></tt></dt>
+<dd>Discount percentage (as a number).</dd>
+<dt><tt class="code docutils literal"><span class="pre">sold_count</span></tt></dt>
+<dd>Number of coupons sold.</dd>
+<dt><tt class="code docutils literal"><span class="pre">city</span></tt></dt>
+<dd>City where the item was offered.</dd>
+<dt><tt class="code docutils literal"><span class="pre">merchant</span></tt></dt>
+<dd>ID of the merchant offering the item. See Merchants.</dd>
+<dt><tt class="code docutils literal"><span class="pre">image_url</span></tt></dt>
+<dd>URL of the main image.</dd>
+<dt><tt class="code docutils literal"><span class="pre">start</span></tt></dt>
+<dd>Time the item was first found.</dd>
+<dt><tt class="code docutils literal"><span class="pre">end</span></tt></dt>
+<dd>Time the item ended.</dd>
+<dt><tt class="code docutils literal"><span class="pre">active</span></tt></dt>
+<dd>Whether the item is still being tracked (True) or is historical (False).</dd>
+<dt><tt class="code docutils literal"><span class="pre">sales_log</span></tt></dt>
+<dd>A list of dictionaries, each with two key/value pairs: <tt class="code docutils literal"><span class="pre">sold</span></tt>, the
+sold count at that particular time, and <tt class="code docutils literal"><span class="pre">date</span></tt>, the time it was
+recorded.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="sites">
+<h2>Sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h2>
+<p>The Sites API allows you to query the database of sites.</p>
+<div class="section" id="id1">
+<h3>Query Parameters<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">name</span></tt>, <tt class="code docutils literal"><span class="pre">spider_name</span></tt></dt>
+<dd>Site and spider name.</dd>
+<dt><tt class="code docutils literal"><span class="pre">spider_enabled</span></tt></dt>
+<dd>Whether the spider will be run.</dd>
+<dt><tt class="code docutils literal"><span class="pre">country</span></tt></dt>
+<dd>The country the site does business in.</dd>
+</dl>
+</div>
+<div class="section" id="id2">
+<h3>Output<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">id</span></tt></dt>
+<dd>Merchant ID.</dd>
+<dt><tt class="code docutils literal"><span class="pre">name</span></tt></dt>
+<dd>Site name.</dd>
+<dt><tt class="code docutils literal"><span class="pre">url</span></tt></dt>
+<dd>URL where the spider starts scraping.</dd>
+<dt><tt class="code docutils literal"><span class="pre">spider_name</span></tt></dt>
+<dd>Scrapy name of the spider.</dd>
+<dt><tt class="code docutils literal"><span class="pre">spider_enabled</span></tt></dt>
+<dd>Whether the spider will be run.</dd>
+<dt><tt class="code docutils literal"><span class="pre">country</span></tt></dt>
+<dd>Country this site is selling in.</dd>
+<dt><tt class="code docutils literal"><span class="pre">runs</span></tt></dt>
+<dd>A list of data about every time the spider was run. <tt class="code docutils literal"><span class="pre">start</span></tt> and
+<tt class="code docutils literal"><span class="pre">end</span></tt> are the times the run began and ended, respectively,
+<tt class="code docutils literal"><span class="pre">offers</span></tt> is the number of offers found by the spider, and
+<tt class="code docutils literal"><span class="pre">errors</span></tt> is a list of error logs found in the run.</dd>
+</dl>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;Test&quot;</span><span class="p">,</span>
+        <span class="s">&quot;url&quot;</span><span class="p">:</span> <span class="s">&quot;http://groupon.com&quot;</span><span class="p">,</span>
+        <span class="s">&quot;spider_name&quot;</span><span class="p">:</span> <span class="s">&quot;test-spider&quot;</span><span class="p">,</span>
+        <span class="s">&quot;spider_enabled&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s">&quot;country&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s">&quot;runs&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s">&quot;start&quot;</span><span class="p">:</span> <span class="s">&quot;2013-12-10T14:07:08.963Z&quot;</span><span class="p">,</span>
+                <span class="s">&quot;offers&quot;</span><span class="p">:</span> <span class="mi">346</span><span class="p">,</span>
+                <span class="s">&quot;end&quot;</span><span class="p">:</span> <span class="s">&quot;2013-12-10T14:14:56.812Z&quot;</span><span class="p">,</span>
+                <span class="s">&quot;errors&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s">&quot;message&quot;</span><span class="p">:</span> <span class="s">&quot;...&quot;</span><span class="p">,</span>
+                        <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;SpiderMissingValueException&quot;</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s">&quot;message&quot;</span><span class="p">:</span> <span class="s">&quot;...&quot;</span><span class="p">,</span>
+                        <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;SpiderMissingValueException&quot;</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="merchants">
+<h2>Merchants<a class="headerlink" href="#merchants" title="Permalink to this headline">¶</a></h2>
+<p>The Merchants API allows you to query the merchants database.</p>
+<div class="section" id="id3">
+<h3>Query Parameters<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">min_lat</span></tt>, code:<cite>max_lon</cite>, code:<cite>min_lat</cite> and code:<cite>max_lat</cite></dt>
+<dd>Specify a rectangle that includes that merchant location.</dd>
+</dl>
+</div>
+<div class="section" id="id4">
+<h3>Output<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">id</span></tt></dt>
+<dd>Merchant ID.</dd>
+<dt><tt class="code docutils literal"><span class="pre">name</span></tt></dt>
+<dd>Merchant name.</dd>
+<dt><tt class="code docutils literal"><span class="pre">lat</span></tt> and <tt class="code docutils literal"><span class="pre">lon</span></tt></dt>
+<dd>Merchant latitude and longitude, respectively.</dd>
+<dt><tt class="code docutils literal"><span class="pre">address</span></tt>, <tt class="code docutils literal"><span class="pre">phone</span></tt>, <tt class="code docutils literal"><span class="pre">website</span></tt>, <tt class="code docutils literal"><span class="pre">email</span></tt></dt>
+<dd>Exactly what it says on the tin.</dd>
+<dt><tt class="code docutils literal"><span class="pre">items_sold</span></tt></dt>
+<dd>Number of items sold in the specified date range.</dd>
+<dt><tt class="code docutils literal"><span class="pre">sales_volume</span></tt></dt>
+<dd>The sales volume in the date range. This is the sum over every item of its
+price times the number sold.</dd>
+<dt><tt class="code docutils literal"><span class="pre">items_offered</span></tt></dt>
+<dd>The number of items offered in the date range.</dd>
+<dt><tt class="code docutils literal"><span class="pre">radius</span></tt></dt>
+<dd>These allow you to find merchants in a radius of <tt class="code docutils literal"><span class="pre">radius</span></tt> from the
+point determined by <tt class="code docutils literal"><span class="pre">lat</span></tt> and <tt class="code docutils literal"><span class="pre">lon</span></tt>.</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h3>Examples<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="mi">5460</span><span class="p">,</span>
+        <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;Peeled&quot;</span><span class="p">,</span>
+        <span class="s">&quot;lat&quot;</span><span class="p">:</span> <span class="mf">42.0483238</span><span class="p">,</span>
+        <span class="s">&quot;lon&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">87.6843991</span><span class="p">,</span>
+        <span class="s">&quot;address&quot;</span><span class="p">:</span> <span class="s">&quot;940 Church St.EvanstonIllinois&quot;</span><span class="p">,</span>
+        <span class="s">&quot;phone&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+        <span class="s">&quot;website&quot;</span><span class="p">:</span> <span class="s">&quot;http://www.peeledchicago.com&quot;</span><span class="p">,</span>
+        <span class="s">&quot;email&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+        <span class="s">&quot;items_sold&quot;</span><span class="p">:</span> <span class="mi">1838</span><span class="p">,</span>
+        <span class="s">&quot;sales_volume&quot;</span><span class="p">:</span> <span class="mf">785075.0</span><span class="p">,</span>
+        <span class="s">&quot;items_offered&quot;</span><span class="p">:</span> <span class="mi">86</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="analytics">
+<h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
+<p>The analytics endpoint provides the functionality of the <a class="reference internal" href="panels.html#analytics-panel"><em>Analytics Panel</em></a> from the API.</p>
+<div class="section" id="id6">
+<h3>Query Parameters<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">sites</span></tt></dt>
+<dd>JSON-formatted array of site IDs.</dd>
+<dt><tt class="code docutils literal"><span class="pre">result_type</span></tt></dt>
+<dd>Either <cite>sales</cite>, <cite>offered</cite> or <cite>sold</cite>.</dd>
+<dt><tt class="code docutils literal"><span class="pre">start_date</span></tt>, <tt class="code docutils literal"><span class="pre">end_date</span></tt></dt>
+<dd>Optional analytics date range.</dd>
+</dl>
+</div>
+<div class="section" id="id7">
+<h3>Output<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">result_type</span></tt></dt>
+<dd>The value of the <tt class="code docutils literal"><span class="pre">result_type</span></tt> request parameter.</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="spiders.html">Spiders</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="fixtures.html">Fixtures</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2015, TryoLabs.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

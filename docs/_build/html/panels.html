@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Panels &mdash; DayWatch 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="DayWatch 0.1 documentation" href="index.html" />
+    <link rel="next" title="Items" href="items.html" />
+    <link rel="prev" title="Setup" href="setup.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>DayWatch 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>Panels</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="setup.html">Setup</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="items.html">Items</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="panels">
+<h1>Panels<a class="headerlink" href="#panels" title="Permalink to this headline">¶</a></h1>
+<p>DayWatch includes a set of panels, which are pages with some form for querying
+the database and generating reports, usually in the form of plots.</p>
+<div class="section" id="id1">
+<h2>Panels<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="items-panel">
+<span id="id2"></span><h3>Items Panel<a class="headerlink" href="#items-panel" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/items-panel.png" src="_images/items-panel.png" />
+<p>The Items Panel allows the user to query the item database and displays selected
+fields in a table.</p>
+</div>
+<div class="section" id="analytics-panel">
+<span id="id3"></span><h3>Analytics Panel<a class="headerlink" href="#analytics-panel" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/analytics-panel.png" src="_images/analytics-panel.png" />
+</div>
+<div class="section" id="trends-panel">
+<h3>Trends Panel<a class="headerlink" href="#trends-panel" title="Permalink to this headline">¶</a></h3>
+<p>The Trends Panel shows the change over time of various variables in items.</p>
+</div>
+<div class="section" id="spiders-panel">
+<h3>Spiders Panel<a class="headerlink" href="#spiders-panel" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/spiders-panel.png" src="_images/spiders-panel.png" />
+<p>The Spiders Panel is used to monitor the state of the Scrapy web spiders. It
+reports the number of items they scraped as well as their current state.</p>
+</div>
+</div>
+<div class="section" id="producing-reports">
+<h2>Producing Reports<a class="headerlink" href="#producing-reports" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="plots">
+<h3>Plots<a class="headerlink" href="#plots" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://d3js.org/">D3</a> is a powerful, declarative data visualization library. For our purposes,
+however, the full power of D3 is not required, so we limit ourselves to <a class="reference external" href="http://nvd3.org/">NVD3</a>,
+an abstraction layer that provides reusable functions for creating the most
+common types of charts.</p>
+<p>DayWatch uses a small Javascript library, <a class="reference external" href="http://tryolabs.github.io/nvd3-tags/">nvd3-tags</a>, originally developed for
+internal use, that generates NVD3 charts from data embedded in the markup of a
+page.</p>
+<p><tt class="code docutils literal"><span class="pre">nvd3-tags</span></tt> uses two non-standard tags, <tt class="code docutils literal"><span class="pre">&lt;chart&gt;</span></tt> and
+<tt class="code docutils literal"><span class="pre">&lt;data&gt;</span></tt>. An example is:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;chart type=&quot;line&quot;
+       title=&quot;Sales&quot;
+       x-date-format=&quot;%x&quot;
+       y-format=&quot;,.2f&quot;&gt;
+  &lt;data&gt;
+    Date,Widgets Sold
+    1396530554328,145.2
+    1396530556789,120.0
+    1396530578473,333.1
+  &lt;/data&gt;
+&lt;/chart&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="setup.html">Setup</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="items.html">Items</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2015, TryoLabs.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Setup &mdash; DayWatch 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="DayWatch 0.1 documentation" href="index.html" />
+    <link rel="next" title="Panels" href="panels.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>DayWatch 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>Setup</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="introduction.html">Introduction</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="panels.html">Panels</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<p>DayWatch uses Vagrant to provide an isolated, virtual machine for development
+and Ansible for orchestration of both development and production servers. This
+provides a completely reproducible environment for all developers, and allows
+testing of everything all the way up to deployment on local virtual servers.</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Setup<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Vagrant version 2 can probably be installed without a problem from your
+operating system&#8217;s package manager, however, Ansible should probably be
+installed with pip. For the latter, we recommend creating a virtual environment
+using virtualenvwrapper to isolate the Ansible version.</p>
+<p>After you have Vagrant and Ansible, do the following to spin up and provision
+the VM:</p>
+<div class="highlight-python"><div class="highlight"><pre>vagrant up
+cd daywatch/deploy
+ansible-galaxy install bobbyrenwick.pip
+</pre></div>
+</div>
+<p>Finally, this command will provision the virtual machine:</p>
+<div class="highlight-python"><div class="highlight"><pre>./run.sh configure
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p>When provisioning is done, you have to create an admin user:</p>
+<div class="highlight-python"><div class="highlight"><pre>vagrant ssh
+./manage.py createsuperuser
+</pre></div>
+</div>
+<p>You&#8217;ll then have to answer some questions. For testing, you&#8217;ll probably want
+something like <tt class="code docutils literal"><span class="pre">admin</span></tt> and <tt class="code docutils literal"><span class="pre">admin</span></tt> for the password.</p>
+<p>Now navigate to <tt class="code docutils literal"><span class="pre">localhost:8080</span></tt>. Sign in with your super user account,
+and you&#8217;re in.</p>
+<p>If you click around the panels you&#8217;ll find there&#8217;s not much to do, since your
+user has no permissions. To give yourself access, navigate to the Django admin,
+go to <tt class="code docutils literal"><span class="pre">Users</span></tt>, click on the <tt class="code docutils literal"><span class="pre">admin</span></tt> user, and scroll to the bottom
+of the page. You will find settings for user permissions:</p>
+<img alt="_images/user-permissions.png" src="_images/user-permissions.png" />
+<p>These allow you to control who can access the different aspects of functionality
+and which countries they have access to.</p>
+</div>
+</div>
+<div class="section" id="deploying-to-production">
+<h2>Deploying to Production<a class="headerlink" href="#deploying-to-production" title="Permalink to this headline">¶</a></h2>
+<p>Ansible&#8217;s <tt class="code docutils literal"><span class="pre">hosts.txt</span></tt> looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>vagrant         ansible_ssh_host=192.168.45.10 ansible_ssh_user=vagrant
+
+[enabled]
+vagrant
+</pre></div>
+</div>
+<p>To add a new host &#8211; say, for a production server &#8211; add a line under
+Vagrant. For instance:</p>
+<div class="highlight-python"><div class="highlight"><pre>prod            ansible_ssh_host=my-ec2-instance.compute.amazonaws.com ansible_ssh_user=ubuntu
+</pre></div>
+</div>
+<p>Then, add <tt class="code docutils literal"><span class="pre">prod</span></tt> under <tt class="code docutils literal"><span class="pre">enabled</span></tt> to execute all deployment actions
+on the <tt class="code docutils literal"><span class="pre">prod</span></tt> server.</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="introduction.html">Introduction</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="panels.html">Panels</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2015, TryoLabs.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

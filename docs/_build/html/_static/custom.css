@@ -1,0 +1,32 @@
+html {
+    background: none;
+}
+
+.header {
+    background-color: white;
+}
+
+.header h1 * {
+    display: none;
+}
+
+.header h2 span {
+    color: #00a6d8;
+    font-size: 36px;
+    text-transform: none;
+}
+
+a {
+    color: #00a6d8 !important;
+}
+
+li {
+    background: none !important;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 700px;
+    box-shadow: 0 0 30px 10px #f6f6f6;
+}

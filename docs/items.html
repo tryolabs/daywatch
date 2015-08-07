@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Items &mdash; DayWatch 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="DayWatch 0.1 documentation" href="index.html" />
+    <link rel="next" title="Spiders" href="spiders.html" />
+    <link rel="prev" title="Panels" href="panels.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>DayWatch 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>Items</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="panels.html">Panels</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="spiders.html">Spiders</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="items">
+<h1>Items<a class="headerlink" href="#items" title="Permalink to this headline">¶</a></h1>
+<p>Item&#8217;s are the central object of DayWatch: They store the information about the
+target object &#8211; a daily deal, a Groupon, etc.</p>
+<div class="section" id="item-data">
+<h2>Item Data<a class="headerlink" href="#item-data" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">hash_id</span></tt></dt>
+<dd>A unique alphanumerical identifier, generally found in the URL (Example:
+<tt class="code docutils literal"><span class="pre">/item.php?id=1234</span></tt>). When there is no ID, just hash the concatention
+of the offer title and (optionally) the city.</dd>
+<dt><tt class="code docutils literal"><span class="pre">offer</span></tt></dt>
+<dd>The title of the offer. You can save unobservable milliseconds by setting
+this to <tt class="code docutils literal"><span class="pre">/html/head/title</span></tt>, if indeed the title contains the offer&#8217;s
+title.</dd>
+<dt><tt class="code docutils literal"><span class="pre">price_currency</span></tt></dt>
+<dd>This should return the price with its currency symbol. It&#8217;s important that
+it matches the ones DayWatch understands belong to the currency for that
+spider&#8217;s country.</dd>
+<dt><tt class="code docutils literal"><span class="pre">discount</span></tt></dt>
+<dd>This should return the discount <em>with the percentage sign</em>.</dd>
+<dt><tt class="code docutils literal"><span class="pre">sold_count</span></tt></dt>
+<dd>Many sites inform how many people have bought the item. This is important
+for deriving, for example, the total sales revenue and the site&#8217;s total
+profits.</dd>
+<dt><tt class="code docutils literal"><span class="pre">description</span></tt></dt>
+<dd>Most Daily Item sites offer a variable-length description of this item. This
+is important for categorizing the item.</dd>
+<dt><tt class="code docutils literal"><span class="pre">city</span></tt></dt>
+<dd>The city where the item is being offered. In many Daily Item sites, the same
+items are repeatedly offered in different sities.</dd>
+</dl>
+<div class="section" id="merchant-data">
+<h3>Merchant Data<a class="headerlink" href="#merchant-data" title="Permalink to this headline">¶</a></h3>
+<p>The merchant is the site that is offering the item through the Site. Sometimes
+the merchant is completely hidden, but most of the time the Site will give you
+some information on the merchant in the same page as the item: Generally the
+merchant&#8217;s name, next to an image of the merchant&#8217;s logo; and usually also the
+website. Sometimes, but not always, the Site gives the address, email, phone
+number, latidude/longitude, et cetera.</p>
+<div class="section" id="latitude-and-longitude">
+<h4>Latitude and Longitude<a class="headerlink" href="#latitude-and-longitude" title="Permalink to this headline">¶</a></h4>
+<p>Many Daily Item companies also provide, in addition to the address, an inlined
+Google Map marking the merchant&#8217;s location, which can be used to extract the
+merchant&#8217;s Latitude and Longitude. Usually this information is stored in the
+Map&#8217;s URL, which will either be an <tt class="code docutils literal"><span class="pre">iframe</span></tt> (An embedded map) or a static
+image. For example, a static image map whose <tt class="code docutils literal"><span class="pre">src</span></tt> contains
+latitude/longitude data like:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;img src=&quot;http://maps.google.com/maps/...ll=-34.9119757494017,-56.1525905296387&quot;&gt;
+</pre></div>
+</div>
+<p>A function, <tt class="code docutils literal"><span class="pre">parse_google_map</span></tt> is provided in <tt class="code docutils literal"><span class="pre">parsers.py</span></tt>,
+facilitates the process. It takes the raw URL text and returns a pair of floats
+with the Longitude and Latitude, or <tt class="code docutils literal"><span class="pre">None</span></tt>.</p>
+</div>
+<div class="section" id="merchant-phone">
+<h4>Merchant Phone<a class="headerlink" href="#merchant-phone" title="Permalink to this headline">¶</a></h4>
+<p>The merchant&#8217;s phone is usually in the same tag as the address. Consider two
+real world examples:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;div class=&quot;location-details f-left&quot; style=&quot;width:330px;&quot;&gt;
+  &lt;h4&gt;Location&lt;/h4&gt;
+  &lt;p&gt;&lt;strong&gt;Greenbelt 3&lt;/strong&gt;&lt;/p&gt;
+  &lt;p&gt;Address: 3/F Greenbelt 3, Makati City&lt;/p&gt;
+  &lt;p&gt;Reservation No.:&lt;strong&gt; &lt;/strong&gt;(02) 475-5153, (02) 475-5154&lt;/p&gt;
+  &lt;p&gt;&amp;nbsp;&lt;/p&gt;
+  ...
+&lt;/div&gt;
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>&lt;div class=&quot;parceiro&quot;&gt;
+  &lt;img src=&quot;/img/logoParceiro/parceiro1941.jpg&quot; alt=&quot;KM Tudo&quot; class=&quot;parceiroLogo&quot;&gt;
+  KM Tudo
+  &lt;a href=&quot;http://www.kmtudo.com.br&quot; target=&quot;_blank&quot;&gt;www.kmtudo.com.br&lt;/a&gt;
+  RUA AMADOR BUENO, 116 , CAJURU . PR / CURITIBA-PR- Brasil- CEP: 82960-020
+  (41)3093-0202
+&lt;/div&gt;
+</pre></div>
+</div>
+<p>For the above two cases, using <tt class="code docutils literal"><span class="pre">r'\((\d+)\)(</span> <span class="pre">)*(\d+)-(\d+)'</span></tt> as the
+regular expression of <tt class="code docutils literal"><span class="pre">phone_re</span></tt> would fit both cases.</p>
+</div>
+</div>
+</div>
+<div class="section" id="scraping-items">
+<h2>Scraping Items<a class="headerlink" href="#scraping-items" title="Permalink to this headline">¶</a></h2>
+<p>DayWatch&#8217;s Scrapy spiders extract some data which they use to build Items
+automatically.</p>
+<div class="section" id="extractors">
+<h3>Extractors<a class="headerlink" href="#extractors" title="Permalink to this headline">¶</a></h3>
+<p>Extractors are a way of merging many common operations that usually require
+overloading a field&#8217;s <tt class="code docutils literal"><span class="pre">load</span></tt> method.</p>
+<p>The <tt class="code docutils literal"><span class="pre">Extractor</span></tt> constructor takes three (all optional) keyword arguments:</p>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">xpath</span></tt></dt>
+<dd>An XPath query.</dd>
+<dt><tt class="code docutils literal"><span class="pre">regexp</span></tt></dt>
+<dd>A regular expression to be run on the XPath matches or on the raw text if no
+XPath is given.</dd>
+<dt><tt class="code docutils literal"><span class="pre">fn</span></tt></dt>
+<dd>A function to manipulate the matches returned by the XPath and/or regular
+expression. If no matches are present/necessary, it can also be used to
+extract data from the reponse object. It&#8217;s prototype is
+<tt class="code docutils literal"><span class="pre">(matches,response,self)</span> <span class="pre">-&gt;</span> <span class="pre">value</span></tt>.</dd>
+</dl>
+<p>Extractors don&#8217;t automatically set anything, they return values that the spider
+will then assign to fields. To use extractors in a spider, you map field names
+to their corresponding extractors in the <tt class="code docutils literal"><span class="pre">extractors</span></tt> map:</p>
+<div class="highlight-python"><div class="highlight"><pre>extractors = {
+    &#39;hash_id&#39;: Extractor(fn=lambda match,resp,self: response.url().split(&#39;/&#39;)[-1]),
+    ...
+    &#39;merchant_phone&#39;: Extractor(xpath=&#39;//div[@class=&quot;merchant&quot;]/p/text()&#39;
+                                regexp=tel_regexp),
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="panels.html">Panels</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="spiders.html">Spiders</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2015, TryoLabs.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

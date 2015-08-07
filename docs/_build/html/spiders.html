@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Spiders &mdash; DayWatch 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="DayWatch 0.1 documentation" href="index.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Items" href="items.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>DayWatch 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>Spiders</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="items.html">Items</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="api.html">API</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="spiders">
+<h1>Spiders<a class="headerlink" href="#spiders" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The basic structure of a spider is as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">PythonLib</span>
+
+<span class="kn">from</span> <span class="nn">scrapy.http</span> <span class="kn">import</span> <span class="n">Request</span>
+<span class="kn">from</span> <span class="nn">scrapy.contrib.linkextractors.sgml</span> <span class="kn">import</span> <span class="n">SgmlLinkExtractor</span>
+<span class="kn">from</span> <span class="nn">scrapy.contrib.spiders.crawl</span> <span class="kn">import</span> <span class="n">Rule</span>
+<span class="kn">from</span> <span class="nn">scrapy.selector</span> <span class="kn">import</span> <span class="n">HtmlXPathSelector</span>
+
+<span class="kn">from</span> <span class="nn">dailyitem.spiders.general</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">dailyitem.parsers</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">fields</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">class</span> <span class="nc">SiteNameSpider</span><span class="p">(</span><span class="n">DailyItemSpider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;sitename.com&quot;</span>
+
+    <span class="n">rules</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="c">#cities</span>
+        <span class="n">Rule</span><span class="p">(</span><span class="n">SgmlLinkExtractor</span><span class="p">(</span><span class="n">restrict_xpaths</span><span class="o">=</span><span class="s">&#39;...&#39;</span><span class="p">,</span>
+                               <span class="n">allow</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;...&#39;</span><span class="p">,)),</span>
+             <span class="n">follow</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+
+        <span class="c">#navigation</span>
+        <span class="n">Rule</span><span class="p">(</span><span class="n">SgmlLinkExtractor</span><span class="p">(</span><span class="n">restrict_xpaths</span><span class="o">=</span><span class="s">&#39;...&#39;</span><span class="p">,</span>
+                               <span class="n">deny</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;...&#39;</span><span class="p">,)),</span>
+             <span class="n">follow</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+
+        <span class="c">#offers</span>
+        <span class="n">Rule</span><span class="p">(</span><span class="n">SgmlLinkExtractor</span><span class="p">(</span><span class="n">restrict_xpaths</span><span class="o">=</span><span class="s">&#39;...&#39;</span><span class="p">,),</span>
+             <span class="n">follow</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+             <span class="n">callback</span><span class="o">=</span><span class="s">&#39;get_offer&#39;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">extractors</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="extractors">
+<h3>Extractors<a class="headerlink" href="#extractors" title="Permalink to this headline">¶</a></h3>
+<p>Extractors are a simple, short way of applying XPath selectors, regular
+expressions, and simple functions when extracting data.</p>
+<div class="section" id="built-in-extractors">
+<h4>Built-in Extractors<a class="headerlink" href="#built-in-extractors" title="Permalink to this headline">¶</a></h4>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">lat</span></tt></dt>
+<dd>Extract Latitude information from an XPath to a Google Map.</dd>
+<dt><tt class="code docutils literal"><span class="pre">lon</span></tt></dt>
+<dd>Like <tt class="code docutils literal"><span class="pre">lat</span></tt>, but returns Longitude information.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="loader-functions">
+<h3>Loader Functions<a class="headerlink" href="#loader-functions" title="Permalink to this headline">¶</a></h3>
+<p>When neither an XPath selector or an extractor will cut it, you can override it
+with a function that does whatever processing you need to extract the
+values. For example, if you have to do something more complicated than what
+XPath can handle to extract the <tt class="code docutils literal"><span class="pre">merchant_phone</span></tt>, you can can use
+something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>def load_merchant_phone(self, item_loader, response):
+    hxs = HtmlXPathSelector(response)
+    try:
+        phone = ...some processing...
+        item_loader.add_value(F_M_PHONE, phone)
+    except:
+        item_loader.add_value(F_M_PHONE, MISSING_VALUE)
+</pre></div>
+</div>
+<p>Functions take precedence over XPath selectors. If the international-level
+spider has, say, a function to load the offer ID, and the country-level spider
+has an XPath selector, the function from the parent will be executed. You have
+to override the method.</p>
+<p>When a country-specific spider can run entirely on xpaths and functions
+inherited from its parent (ie, when the site&#8217;s structure is the same for every
+country), that spider only needs the following code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">dailyitem.spiders.groupon_spider</span> <span class="kn">import</span> <span class="n">GrouponSpider</span>
+<span class="kn">from</span> <span class="nn">dailyitem.items</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">dailyitem.parsers</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">class</span> <span class="nc">SiteNameCountrySpider</span><span class="p">(</span><span class="n">SiteNameSpiderr</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;sitename.com.countrycode&quot;</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="s">&quot;countrycode&quot;</span>
+    <span class="n">main_domain</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
+    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="n">main_domain</span><span class="p">]</span>
+
+    <span class="n">main_url</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
+
+    <span class="n">decimal_mark</span> <span class="o">=</span> <span class="p">[</span><span class="n">DECIMAL_MARK_PERIOD</span><span class="o">|</span><span class="n">DECIMAL_MARK_COMMA</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Starting from this skeleton, you can change the XPaths or the functions if there
+is anything that changes at the country level, but first you have to add the
+necessary <tt class="code docutils literal"><span class="pre">import</span></tt> statements.</p>
+</div>
+</div>
+<div class="section" id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><tt class="code docutils literal"><span class="pre">name</span></tt></dt>
+<dd>The spider&#8217;s name, in the <tt class="code docutils literal"><span class="pre">sitename.com.countrycode</span></tt> format. Example:
+<tt class="code docutils literal"><span class="pre">livingsocial.com.ph</span></tt>.</dd>
+<dt><tt class="code docutils literal"><span class="pre">main_domain</span></tt></dt>
+<dd>The domain and subdomains the spider is allowed to crawl. Essentially the
+site&#8217;s FQDN, without all the slashes and the protocol (<tt class="code docutils literal"><span class="pre">http</span></tt>)
+information.</dd>
+<dt><tt class="code docutils literal"><span class="pre">main_url</span></tt></dt>
+<dd>The starting URL. When testing a spider, this must be provided through the
+command line (See below).</dd>
+<dt><tt class="code docutils literal"><span class="pre">has_main_offer</span></tt></dt>
+<dd>In some sites, not all the items are linked to: Instead the landing page
+displays a full item (Generally &#8220;today&#8217;s item&#8221;),and links to other items are
+in a sidebar or at the bottom of the page. In these cases,
+<tt class="code docutils literal"><span class="pre">has_main_offer</span></tt> should be set to <tt class="code docutils literal"><span class="pre">True</span></tt> so Scrapy knows it has
+to crawl that landing page as well as the others.</dd>
+<dt><tt class="code docutils literal"><span class="pre">decimal_mark</span></tt></dt>
+<dd>Either <tt class="code docutils literal"><span class="pre">DECIMAL_MARK_COMMA</span></tt> or <tt class="code docutils literal"><span class="pre">DECIMAL_MARK_PERIOD</span></tt>. This
+informs the parsers which symbol is used to mark the decimals in the
+price. If the site suddenlly decides to change from one representation to
+the other, you (Or your clients) will notice a change in the sold count.</dd>
+</dl>
+</div>
+<div class="section" id="running-spiders">
+<h2>Running Spiders<a class="headerlink" href="#running-spiders" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="from-the-command-line">
+<h3>From the Command Line<a class="headerlink" href="#from-the-command-line" title="Permalink to this headline">¶</a></h3>
+<p>When testing the spider, you use use the <tt class="code docutils literal"><span class="pre">run_spider</span></tt> command to run it.</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./manage.py run_spider test_spider
+Running spider test_spider
+59815 Apple iPhone 5 16GB Unlocked | Daily Steals Apple iPhone 5 16GB Unlocked (U$S 249.0, ?)
+59811 AnyCommand AC Remote Control | Daily Steals AnyCommand AC Remote Control (U$S 8.0, ?)
+Could not classify item &#39;59803&#39;, assigning category &#39;Retail&#39;.
+59803 Incipio Wireless Phone Charger | Daily Steals Incipio Wireless Phone Charger (U$S 10.0, ?)
+59806 BlueAnt Pump BT Sportbuds | Daily Steals BlueAnt Pump BT Sportbuds (U$S 25.0, ?)
+59792 Solarpod Buddy 2800mAh Battery | Daily Steals Solarpod Buddy 2800mAh Battery (U$S 10.0, ?)
+59796 Sphamm 7ft Nylon Hammock | Daily Steals Sphamm 7ft Nylon Hammock (U$S 9.0, ?)
+</pre></div>
+</div>
+</div>
+<div class="section" id="from-celery">
+<h3>From Celery<a class="headerlink" href="#from-celery" title="Permalink to this headline">¶</a></h3>
+<p>Spiders can be scheduled to run periodically through Celery from the Django
+Admin (Or programatically).</p>
+<p>Two objects are required to schedule a spider: <strong>Intervals</strong>, which represent
+some periodic time delta (ie, &#8220;Every 30 seconds&#8221;, &#8220;Every six hours&#8221;); and
+<strong>Periodic Tasks</strong>. To schedule a new spider-running task, just create a new
+Periodic Task with an appropriate interval, choose the
+<tt class="code docutils literal"><span class="pre">core.tasks.runspiders</span></tt> as the task, and pass the appropriate parameters.</p>
+</div>
+</div>
+<div class="section" id="spider-logs">
+<h2>Spider Logs<a class="headerlink" href="#spider-logs" title="Permalink to this headline">¶</a></h2>
+<p>When a spider fails, it&#8217;s generally either because the site has been changed in
+some way and the old XPath selectors no longer work, or the Site has blocked
+us because the Spider&#8217;s crawling looks like a DOS attack.</p>
+</div>
+<div class="section" id="daily-deal-sites">
+<h2>Daily Deal Sites<a class="headerlink" href="#daily-deal-sites" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="navigation">
+<h3>Navigation<a class="headerlink" href="#navigation" title="Permalink to this headline">¶</a></h3>
+<p>Essentially, there is a main page that usually lists some deals, a navigation
+bar with links to different sections, and a selector to jump to a different city
+or country. The selector is sometimes AJAX, which some times requires one to
+collect a list of supported locations and add them to Scrapy&#8217;s
+<tt class="code docutils literal"><span class="pre">start_urls</span></tt> list for that spiders so they will be scraped. The navigation
+bar sometimes includes an item labeled &#8216;All deals&#8217; or similar, which shows a
+page listing all the deals. Just to make sure all deals are being scraped, all
+sections should be scraped unless it is very clear that there exists an &#8216;All
+deals&#8217; section and that it does in fact show all the deals.</p>
+<p>Many sites that handle a large volume of deals include pagination in their deal
+listings. When the pagination is HTTP, it is sufficient to add a rule with the
+XPath of the &#8216;Next&#8217; button. When the pagination is AJAX, the methods described
+in the JavaScript section should be used.</p>
+<p>In rare cases, a link to a deal actually links to a list of deals, or some deals
+can only be accessed in a listing (Usually in a sidebar or below) inside a
+deal&#8217;s page. In those cases, the rule for scraping a deal should include a
+<tt class="code docutils literal"><span class="pre">follow=True</span></tt> parameter to ensure the &#8216;sub-deals&#8217; are scraped.</p>
+</div>
+<div class="section" id="javascript">
+<h3>JavaScript<a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h3>
+<p>Many sites use JavaScript to dynamically load content. Scrapy doesn&#8217;t have a
+JavaScript interpreter built it, but this is generally not necessary. Usually,
+the JavaScript sends a request to some file somewhere on the server. You can
+view the request and its results in the Web Inspector&#8217;s network tab, just open
+it and press F5 and or scroll down (If the page uses infinite scroll) until a
+request is sent.</p>
+<p>Usually the response is JSON data that is then concatenated with prewritten HTML
+and written onto the page. In other cases, it&#8217;s a complete snippet of HTML that
+is simply written directly into the page. In the latter case, you can just use
+<a class="reference external" href="http://doc.scrapy.org/en/latest/topics/request-response.html">Requests</a> to whatever URL holds that file; and in the former, you can simply
+use the methods described in the <a class="reference internal" href="#spiders-json"><em>JSON section</em></a> to extract
+the data.</p>
+</div>
+<div class="section" id="json">
+<span id="spiders-json"></span><h3>JSON<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes, when Javascript is used to dynamically load the deals, the script
+doesn&#8217;t request a page with raw HTML and insert it, but rather requests a JSON
+file, and produces the links to the requests using the data in it.</p>
+<p>You can find this out by going to the Web Inspector, and in the Network tab
+clearing whatever is there and refreshing the page, then scroll until you find a
+response with the MIME type <tt class="code docutils literal"><span class="pre">application/json</span></tt> (<tt class="code docutils literal"><span class="pre">text/x-json</span></tt> is
+sometimes used, but is not the Standard. Sometimes, the file is sent as a
+<tt class="code docutils literal"><span class="pre">text/plain</span></tt>, and if the file doesn&#8217;t have the <tt class="code docutils literal"><span class="pre">.json</span></tt> extension
+then you have no choice but to look manually).</p>
+<p>The link to the JSON file might be the same even as its content changes, or it
+might change every day. For example, in one of our spiders the file was called
+<tt class="code docutils literal"><span class="pre">20130219.json</span></tt> on the ninteenth of February, 2013, so the query string
+had to be created dynamically.</p>
+<p>Once you have the link, you can use Scrapy&#8217;s <a class="reference external" href="http://doc.scrapy.org/en/latest/topics/request-response.html">Requests</a> to download it Python&#8217;s
+<tt class="code docutils literal"><span class="pre">json</span></tt> module to parse it. Python and JSON get along very well. You can
+access JSON maps and array as if they were native Python dictionaries and lists,
+respectively. To build an item &#8216;by hand&#8217;, you should do it like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">deal</span> <span class="o">=</span> <span class="n">DayWatchItem</span><span class="p">()</span>
+
+<span class="n">deal</span><span class="p">[</span><span class="n">F_ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+<span class="n">deal</span><span class="p">[</span><span class="n">F_OFFER</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+
+<span class="o">...</span>
+
+<span class="k">yield</span> <span class="n">deal</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="items.html">Items</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="api.html">API</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2015, TryoLabs.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

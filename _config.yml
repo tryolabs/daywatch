@@ -1,0 +1,22 @@
+title: DayWatch
+description: E-commerce scraping and analytics platform.
+baseurl: ""
+url: "http://www.usedaywatch.com"
+
+tryo: "http://tryolabs.com/"
+spiders_screen: /assets/img/spiders-panel.png
+items_screen: /assets/img/items-panel.png
+
+include: ["_static", "_images"]
+
+logos:
+  - file: python.png
+    url: https://www.python.org/
+  - file: django.png
+    url: https://www.djangoproject.com/
+  - file: scrapy.jpg
+    url: http://scrapy.org/
+  - file: monkeylearn.png
+    url: http://www.monkeylearn.com/
+  - file: django-rest.png
+    url: http://www.django-rest-framework.org/

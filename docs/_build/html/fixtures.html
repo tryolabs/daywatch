@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Fixtures &mdash; DayWatch 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="DayWatch 0.1 documentation" href="index.html" />
+    <link rel="prev" title="API" href="api.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>DayWatch 0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>Fixtures</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="api.html">API</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="fixtures">
+<h1>Fixtures<a class="headerlink" href="#fixtures" title="Permalink to this headline">¶</a></h1>
+<p>The file <tt class="code docutils literal"><span class="pre">core/fixtures/initial_data.yaml</span></tt> includes data to be loaded when
+the database is first created. This is largely unchanging data that is
+represented in an RDBMS because of its relations, but otherwise should not be
+mutable.</p>
+<div class="section" id="languages">
+<h2>Languages<a class="headerlink" href="#languages" title="Permalink to this headline">¶</a></h2>
+<p>These are used to classify sites into different languages.</p>
+<div class="highlight-python"><div class="highlight"><pre># Example entry
+- model: core.Language
+  pk: 1
+  fields:
+    code: &#39;en&#39;
+    name: &#39;English&#39;
+</pre></div>
+</div>
+</div>
+<div class="section" id="countries">
+<h2>Countries<a class="headerlink" href="#countries" title="Permalink to this headline">¶</a></h2>
+<p>This is a list of countries DayWatch can build sites in. Support for a new
+country can be added either by editing this file or through the Django Admin
+interface. Countries also reference languages (If a country has multiple
+languages, the one that is usually used in the country&#8217;s sites should be
+used. For example, the official language of Malaysia is Malay, but most daily
+deal sites are in English or have English versions).</p>
+<div class="highlight-python"><div class="highlight"><pre># Example entry
+- model: core.Country
+  pk: 1
+  fields:
+    name: USA
+    code: us
+    timezone: America/New_York
+    lang: 1
+</pre></div>
+</div>
+</div>
+<div class="section" id="currencies">
+<h2>Currencies<a class="headerlink" href="#currencies" title="Permalink to this headline">¶</a></h2>
+<p>Currency objects are not strictly immutable, as their exchange rate relative to
+US dollars is updated periodically from a web service.</p>
+<p>The <tt class="code docutils literal"><span class="pre">text</span></tt> field determines how the currency should be displayed. The
+<tt class="code docutils literal"><span class="pre">regex</span></tt> field determines how a currency is identified from a string of
+text containing the currency symbol and the price of an item.</p>
+<div class="highlight-python"><div class="highlight"><pre># Example entry
+- model: core.Currency
+  pk: 1
+  fields:
+    country: 1
+    iso_code: USD
+    us_change: 1.0
+    regex: &quot;[Uu]\\$[Ss]&quot;
+    text: U$S
+</pre></div>
+</div>
+</div>
+<div class="section" id="categories">
+<h2>Categories<a class="headerlink" href="#categories" title="Permalink to this headline">¶</a></h2>
+<p>Items are partitioned into different categories by the classifier, and the
+classifier table contains the list of different categories that can be
+used. Note that categories form a tree on the MonkeyLearn side, but we don&#8217;t
+really need to represent this, so we just store a set of category objects with
+their label (<tt class="code docutils literal"><span class="pre">name</span></tt>).</p>
+<div class="highlight-python"><div class="highlight"><pre># Example entry
+- model: core.Category
+  pk: 2
+  fields:
+    name: Entertainment &amp; Recreation
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="api.html">API</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2011-2015, TryoLabs.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

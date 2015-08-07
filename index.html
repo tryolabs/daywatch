@@ -1,0 +1,117 @@
+---
+layout: default
+---
+
+<main class="landing">
+  <header>
+    <h1>{{ site.title }}</h1>
+    <span class="tagline">{{ site.description }}</span>
+  </header>
+  <section class="intro">
+    <h2 class="info">
+      Information Retrieval and Analytics Platform for E-Commerce
+    </h2>
+    <div class="device-container">
+      <div class="device-mockup macbook portrait black">
+        <div class="device">
+          <div class="screen">
+            <a href="{{ site.items_screen }}">
+              <img src="{{ site.items_screen }}">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="history">
+    <a href="{{ site.tryo }}">
+      <img src="/assets/img/logos/tryolabs.png">
+    </a>
+    <div class="text">
+      <p>
+        DayWatch was Tryolabs' first large project, and now we're open-sourcing
+        it.
+      </p>
+      <p>
+        <a href="{{ site.tryo }}">We</a> specialize in web and mobile
+        applications with artificial intelligence and machine learning.
+      </p>
+    </div>
+  </section>
+  <section class="features">
+    <h2>Features</h2>
+
+    <div class="feature-container">
+      <dl>
+        <dt>
+          Extract information from a given number of un-structured data sources.
+        </dt>
+        <dd>
+          <ul>
+            <li>
+              e.g. web pages (including interactive navigation), RSS feeds,
+              Excel files, text files. This process is made simple using a data
+              scraping system built using Scrapy and NLP techniques.
+            </li>
+          </ul>
+        </dd>
+
+        <dt>
+          Cure, analyze and synthesize information
+        </dt>
+
+        <dd>
+          <ul>
+            <li>
+              Data retrieved can be used for data mining, text classification,
+              and reporting between others.
+            </li>
+
+            <li>
+              Data processing modules can be easily added to pipeline data
+              processing.
+            </li>
+          </ul>
+        </dd>
+
+        <dt>
+          Graphically display information
+        </dt>
+
+        <dd>
+          <ul>
+            <li>
+              Through a responsive web interface, DayWatch Platform is able to
+              present several kinds of data visualizations. From pie charts, to
+              lists, images, dynamic tables and reports.
+            </li>
+          </ul>
+        </dd>
+      </dl>
+      <div class="device-container">
+        <div class="device-mockup imac portrait black">
+          <div class="device">
+            <div class="screen">
+              <a href="{{ site.spiders_screen }}">
+                <img src="{{ site.spiders_screen }}">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="built-with">
+    <h2>Built with</h2>
+
+    <ul class="logos">
+      {% for logo in site.logos %}
+        <li>
+          <a href="{{ logo.url }}">
+            <img src="/assets/img/logos/{{ logo.file }}">
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+</main>
