@@ -30,3 +30,8 @@ img {
     max-width: 700px;
     box-shadow: 0 0 30px 10px #f6f6f6;
 }
+
+tt.code {
+    padding: 2px 4px;
+    border-radius: 4px;
+}
