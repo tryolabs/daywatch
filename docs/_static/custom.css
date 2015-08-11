@@ -36,3 +36,8 @@ tt.code {
     border-radius: 4px;
     background-color: #F3F3F3;
 }
+
+pre {
+    border: 0;
+    background-color: #F3F3F3;
+}
