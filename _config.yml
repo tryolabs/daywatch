@@ -4,8 +4,8 @@ baseurl: ""
 url: "http://www.usedaywatch.com"
 
 tryo: "http://tryolabs.com/"
-spiders_screen: /assets/img/spiders-panel.png
-items_screen: /assets/img/items-panel.png
+spiders_screen: assets/img/spiders-panel.png
+items_screen: assets/img/items-panel.png
 
 include: ["_static", "_images"]
 
