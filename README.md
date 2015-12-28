@@ -29,3 +29,9 @@ Wanted:
 - [ ] More advanced search, for example, prices within a range, or that a
   certain field meets a certain condition. This is typical of vertical search
   engines
+
+## License
+
+Copyright (c) 2011-2015 Tryolabs
+
+Released under the MIT License (See LICENSE)
